@@ -58,7 +58,7 @@ class DefaultFirebaseOptions {
 
   static const FirebaseOptions android = FirebaseOptions(
     apiKey: 'AIzaSyAq9SHgfhpBayh56jZGoviqjLgB_v75kU4',
-    appId: '1:887235051913:android:e533615b265970c5496158',
+    appId: '1:887235051913:android:e987bcb7eeb28581496158',
     messagingSenderId: '887235051913',
     projectId: 'bingoadmin-c4015',
     storageBucket: 'bingoadmin-c4015.appspot.com',
@@ -72,4 +72,5 @@ class DefaultFirebaseOptions {
     storageBucket: 'bingoadmin-c4015.appspot.com',
     iosBundleId: 'br.com.fabioalvaro.admin.bingoadmin',
   );
+
 }

@@ -7,25 +7,6 @@
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:887235051913:android:e987bcb7eeb28581496158",
-        "android_client_info": {
-          "package_name": "br.com.fabioalvaro.admin.bingoadmin"
-        }
-      },
-      "oauth_client": [],
-      "api_key": [
-        {
-          "current_key": "AIzaSyAq9SHgfhpBayh56jZGoviqjLgB_v75kU4"
-        }
-      ],
-      "services": {
-        "appinvite_service": {
-          "other_platform_oauth_client": []
-        }
-      }
-    },
-    {
-      "client_info": {
         "mobilesdk_app_id": "1:887235051913:android:e533615b265970c5496158",
         "android_client_info": {
           "package_name": "br.com.fabioalvaro.bingoadmin"
