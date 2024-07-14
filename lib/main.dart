@@ -1,13 +1,28 @@
 import 'package:firebase_core/firebase_core.dart';
+
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
-void main() {
-  //Firebase.initializeApp();
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+
+    //CRASHLYTICS
+  await Firebase.initializeApp();
+  FirebaseCrashlytics.instance.setUserIdentifier("26721993880");
   
+FlutterError.onError = (errorDetails) {
+      FirebaseCrashlytics.instance.recordFlutterFatalError(errorDetails);
+    };
 
-
- //FlutterError.onError = FirebaseCrashlytics.instance.recordFlutterError;
+ FlutterError.onError = FirebaseCrashlytics.instance.recordFlutterError;
+ // Pass all uncaught asynchronous errors that aren't handled by the Flutter framework to Crashlytics
+    PlatformDispatcher.instance.onError = (error, stack) {
+      FirebaseCrashlytics.instance.recordError(error, stack, fatal: true);
+      return true;
+    };
+    FirebaseCrashlytics.instance.setCrashlyticsCollectionEnabled(true);
+    //CRASHLYTICS
 
   runApp(const MyApp());
 }
@@ -66,6 +81,69 @@ class _MyHomePageState extends State<MyHomePage> {
     // fast, so that you can just rebuild anything that needs updating rather
     // than having to individually change instances of widgets.
     return Scaffold(
+      drawer: Drawer(
+        child: ListView(
+          children: [
+            ListTile(
+              title: const Text('Gera Crash!!! nervoso'),
+              onTap: () {
+               // print('Vai arrebentar...');
+                FirebaseCrashlytics.instance.crash();
+                
+              },
+            ),
+            ListTile(
+              title: const Text('Erro Assincrono'),
+              onTap: () {
+                throw Error();
+               // Navigator.pop(context);
+              },
+            ),
+
+            ListTile(
+              title: const Text('exceções não fatais '),
+              onTap: () {
+                print("clicou no botao de nao fatais..");
+//                 await FirebaseCrashlytics.instance.recordError(
+//   error,
+//   stackTrace,
+//   reason: 'a non-fatal error'
+// );
+try {
+  throw ErrorDescription("message alguma coisa!!!!");
+} on Exception catch (meuErro) {
+  FirebaseCrashlytics.instance.log("Cavalo manco do para...");
+  print("Deu erro aqui $meuErro");
+  FirebaseCrashlytics.instance.recordError(meuErro, StackTrace.current);
+  // TODO
+}
+
+
+FirebaseCrashlytics.instance.log("Cavalo manco do para...");
+
+// Set a key to a string.
+FirebaseCrashlytics.instance.setCustomKey('str_key', 'hello');
+
+// Set a key to a boolean.
+FirebaseCrashlytics.instance.setCustomKey("bool_key", true);
+
+// Set a key to an int.
+FirebaseCrashlytics.instance.setCustomKey("int_key", 1);
+
+// // Set a key to a long.
+// FirebaseCrashlytics.instance.setCustomKey("int_key", 1L);
+
+// // Set a key to a float.
+// FirebaseCrashlytics.instance.setCustomKey("float_key", 1.0f);
+
+// Set a key to a double.
+FirebaseCrashlytics.instance.setCustomKey("double_key", 1.0);
+
+              },
+            ),
+          ],
+        ),
+      ),
       appBar: AppBar(
         // TRY THIS: Try changing the color here to a specific color (to
         // Colors.amber, perhaps?) and trigger a hot reload to see the AppBar
