@@ -1,4 +1,9 @@
+import 'package:bingoadmin/screens/cartela_screen.dart';
+import 'package:bingoadmin/screens/componentes/theme_Data.dart';
+import 'package:bingoadmin/screens/diversos_screen.dart';
 import 'package:bingoadmin/screens/home_admin_screen.dart';
+import 'package:bingoadmin/screens/sorteio_manual_screen.dart';
+import 'package:bingoadmin/screens/sorteio_screen.dart';
 import 'package:bingoadmin/screens/teste_screen.dart';
 import 'package:bingoadmin/screens/vendedor_screen.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -38,17 +43,16 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Flutter Demo',
-      theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.green),
-        useMaterial3: true,
-      ),
+      theme: myTheme,
       initialRoute: "teste",
       routes:{
         "teste": (context) => TesteScreen(),
+        "diversos": (context) => DiversosScreen(),
         "home": (context) => HomeAdminScreen(),
-        "cartelas": (context) => VendedorScreen(),
+        "sorteios": (context) => SorteioScreen(),
+        "cartelas": (context) => CartelaScreen(),
         "vendedores": (context) => VendedorScreen(),
-        "sorteio-manual": (context) => VendedorScreen(),
+        "sorteio-manual": (context) => SorteioManualScreen(),
       },
       onGenerateRoute: (settings) {
         if (settings.name == "teste2") {

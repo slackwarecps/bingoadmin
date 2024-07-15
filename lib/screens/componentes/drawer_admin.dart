@@ -1,13 +1,15 @@
+import 'package:bingoadmin/screens/componentes/theme_Data.dart';
 import 'package:flutter/material.dart';
 
 Drawer DrawerAdmin(BuildContext context) {
   return Drawer(
+    
     child: ListView(
       padding: EdgeInsets.zero,
       children: <Widget>[
         DrawerHeader(
           decoration: const BoxDecoration(
-            color: Colors.deepPurple,
+            color: Colors.pink,
           ),
           child: const Text(
             'Bingo Admin',
@@ -53,6 +55,22 @@ Drawer DrawerAdmin(BuildContext context) {
           leading: Icon(Icons.access_alarm),
           onTap: () {
             Navigator.pushNamed(context, 'sorteio-manual');
+          },          
+        ),
+
+        ListTile(
+          title: const Text('Testes'),
+          leading: Icon(Icons.access_alarm),
+          onTap: () {
+            Navigator.pushNamed(context, 'teste');
+          },          
+        ),
+
+        ListTile(
+          title: const Text('Diversos'),
+          leading: Icon(Icons.access_alarm),
+          onTap: () {
+            Navigator.pushNamed(context, 'diversos');
           },          
         ),
 
