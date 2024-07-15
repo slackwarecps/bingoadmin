@@ -1,3 +1,6 @@
+import 'package:bingoadmin/screens/home_admin_screen.dart';
+import 'package:bingoadmin/screens/teste_screen.dart';
+import 'package:bingoadmin/screens/vendedor_screen.dart';
 import 'package:firebase_core/firebase_core.dart';
 
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
@@ -36,11 +39,28 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Flutter Demo',
       theme: ThemeData(
-
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+        colorScheme: ColorScheme.fromSeed(seedColor: Colors.green),
         useMaterial3: true,
       ),
-      home: const MyHomePage(title: 'Bingo Admin Opa'),
+      initialRoute: "teste",
+      routes:{
+        "teste": (context) => TesteScreen(),
+        "home": (context) => HomeAdminScreen(),
+        "cartelas": (context) => VendedorScreen(),
+        "vendedores": (context) => VendedorScreen(),
+        "sorteio-manual": (context) => VendedorScreen(),
+      },
+      onGenerateRoute: (settings) {
+        if (settings.name == "teste2") {
+          //final Credito credito = settings.arguments as Credito;
+          return MaterialPageRoute(builder: (context) {
+            return TesteScreen();
+          });
+        }
+        assert(false, 'Precisar ser Implementado ${settings.name}');
+        return null;
+      },
+     
     );
   }
 }
@@ -63,23 +83,14 @@ class _MyHomePageState extends State<MyHomePage> {
 
     FirebaseCrashlytics.instance.crash();
     setState(() {
-      // This call to setState tells the Flutter framework that something has
-      // changed in this State, which causes it to rerun the build method below
-      // so that the display can reflect the updated values. If we changed
-      // _counter without calling setState(), then the build method would not be
-      // called again, and so nothing would appear to happen.
+  
       _counter++;
     });
   }
 
   @override
   Widget build(BuildContext context) {
-    // This method is rerun every time setState is called, for instance as done
-    // by the _incrementCounter method above.
-    //
-    // The Flutter framework has been optimized to make rerunning build methods
-    // fast, so that you can just rebuild anything that needs updating rather
-    // than having to individually change instances of widgets.
+
     return Scaffold(
       drawer: Drawer(
         child: ListView(

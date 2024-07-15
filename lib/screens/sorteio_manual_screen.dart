@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-class DiversosScreen extends StatelessWidget {
-  const DiversosScreen({super.key});
+class SorteioManualScreen extends StatelessWidget {
+  const SorteioManualScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
