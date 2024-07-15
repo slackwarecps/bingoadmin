@@ -2,8 +2,8 @@ import 'package:bingoadmin/screens/cartela_screen.dart';
 import 'package:bingoadmin/screens/componentes/theme_Data.dart';
 import 'package:bingoadmin/screens/diversos_screen.dart';
 import 'package:bingoadmin/screens/home_admin_screen.dart';
-import 'package:bingoadmin/screens/sorteio_manual_screen.dart';
-import 'package:bingoadmin/screens/sorteio_screen.dart';
+import 'package:bingoadmin/screens/sorteio/sorteio_manual_screen.dart';
+import 'package:bingoadmin/screens/sorteio/sorteio_screen.dart';
 import 'package:bingoadmin/screens/teste_screen.dart';
 import 'package:bingoadmin/screens/vendedor_screen.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -15,22 +15,22 @@ import 'package:flutter/material.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
-    //CRASHLYTICS
+  //CRASHLYTICS
   await Firebase.initializeApp();
   FirebaseCrashlytics.instance.setUserIdentifier("26721993880");
-  
-FlutterError.onError = (errorDetails) {
-      FirebaseCrashlytics.instance.recordFlutterFatalError(errorDetails);
-    };
 
- FlutterError.onError = FirebaseCrashlytics.instance.recordFlutterError;
- // Pass all uncaught asynchronous errors that aren't handled by the Flutter framework to Crashlytics
-    PlatformDispatcher.instance.onError = (error, stack) {
-      FirebaseCrashlytics.instance.recordError(error, stack, fatal: true);
-      return true;
-    };
-    FirebaseCrashlytics.instance.setCrashlyticsCollectionEnabled(true);
-    //CRASHLYTICS
+  FlutterError.onError = (errorDetails) {
+    FirebaseCrashlytics.instance.recordFlutterFatalError(errorDetails);
+  };
+
+  FlutterError.onError = FirebaseCrashlytics.instance.recordFlutterError;
+  // Pass all uncaught asynchronous errors that aren't handled by the Flutter framework to Crashlytics
+  PlatformDispatcher.instance.onError = (error, stack) {
+    FirebaseCrashlytics.instance.recordError(error, stack, fatal: true);
+    return true;
+  };
+  FirebaseCrashlytics.instance.setCrashlyticsCollectionEnabled(true);
+  //CRASHLYTICS
 
   runApp(const MyApp());
 }
@@ -45,7 +45,7 @@ class MyApp extends StatelessWidget {
       title: 'Flutter Demo',
       theme: myTheme,
       initialRoute: "teste",
-      routes:{
+      routes: {
         "teste": (context) => TesteScreen(),
         "diversos": (context) => DiversosScreen(),
         "home": (context) => HomeAdminScreen(),
@@ -64,15 +64,12 @@ class MyApp extends StatelessWidget {
         assert(false, 'Precisar ser Implementado ${settings.name}');
         return null;
       },
-     
     );
   }
 }
 
 class MyHomePage extends StatefulWidget {
   const MyHomePage({super.key, required this.title});
-
-
 
   final String title;
 
@@ -84,17 +81,14 @@ class _MyHomePageState extends State<MyHomePage> {
   int _counter = 0;
 
   void _incrementCounter() {
-
     FirebaseCrashlytics.instance.crash();
     setState(() {
-  
       _counter++;
     });
   }
 
   @override
   Widget build(BuildContext context) {
-
     return Scaffold(
       drawer: Drawer(
         child: ListView(
@@ -102,19 +96,17 @@ class _MyHomePageState extends State<MyHomePage> {
             ListTile(
               title: const Text('Gera Crash!!! nervoso'),
               onTap: () {
-               // print('Vai arrebentar...');
+                // print('Vai arrebentar...');
                 FirebaseCrashlytics.instance.crash();
-                
               },
             ),
             ListTile(
               title: const Text('Erro Assincrono'),
               onTap: () {
                 throw Error();
-               // Navigator.pop(context);
+                // Navigator.pop(context);
               },
             ),
-
             ListTile(
               title: const Text('exceções não fatais '),
               onTap: () {
@@ -124,26 +116,26 @@ class _MyHomePageState extends State<MyHomePage> {
 //   stackTrace,
 //   reason: 'a non-fatal error'
 // );
-try {
-  throw ErrorDescription("message alguma coisa!!!!");
-} on Exception catch (meuErro) {
-  FirebaseCrashlytics.instance.log("Cavalo manco do para...");
-  print("Deu erro aqui $meuErro");
-  FirebaseCrashlytics.instance.recordError(meuErro, StackTrace.current);
-  // TODO
-}
+                try {
+                  throw ErrorDescription("message alguma coisa!!!!");
+                } on Exception catch (meuErro) {
+                  FirebaseCrashlytics.instance.log("Cavalo manco do para...");
+                  print("Deu erro aqui $meuErro");
+                  FirebaseCrashlytics.instance
+                      .recordError(meuErro, StackTrace.current);
+                  // TODO
+                }
 
-
-FirebaseCrashlytics.instance.log("Cavalo manco do para...");
+                FirebaseCrashlytics.instance.log("Cavalo manco do para...");
 
 // Set a key to a string.
-FirebaseCrashlytics.instance.setCustomKey('str_key', 'hello');
+                FirebaseCrashlytics.instance.setCustomKey('str_key', 'hello');
 
 // Set a key to a boolean.
-FirebaseCrashlytics.instance.setCustomKey("bool_key", true);
+                FirebaseCrashlytics.instance.setCustomKey("bool_key", true);
 
 // Set a key to an int.
-FirebaseCrashlytics.instance.setCustomKey("int_key", 1);
+                FirebaseCrashlytics.instance.setCustomKey("int_key", 1);
 
 // // Set a key to a long.
 // FirebaseCrashlytics.instance.setCustomKey("int_key", 1L);
@@ -152,8 +144,7 @@ FirebaseCrashlytics.instance.setCustomKey("int_key", 1);
 // FirebaseCrashlytics.instance.setCustomKey("float_key", 1.0f);
 
 // Set a key to a double.
-FirebaseCrashlytics.instance.setCustomKey("double_key", 1.0);
-
+                FirebaseCrashlytics.instance.setCustomKey("double_key", 1.0);
               },
             ),
           ],
@@ -204,11 +195,4 @@ FirebaseCrashlytics.instance.setCustomKey("double_key", 1.0);
       ), // This trailing comma makes auto-formatting nicer for build methods.
     );
   }
-
-
-
-
-
 }
-
-

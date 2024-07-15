@@ -28,6 +28,12 @@ class Sorteio {
     };
   }
 
+  Sorteio.fromMap(Map<String, dynamic> map)
+      : id = map['id'],
+        nome = map['nome'],
+        createdAt = DateTime.tryParse(map['created_at']) ?? DateTime.now(),
+        updatedAt = DateTime.tryParse(map['updated_at']) ?? DateTime.now();
+
   @override
   String toString() {
     return "$nome \ncreated_at: $createdAt\nupdated_at: $updatedAt";
