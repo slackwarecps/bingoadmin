@@ -38,6 +38,11 @@ dependencies:
   firebase_core: ^3.2.0
   cloud_firestore: ^5.1.0
   firebase_crashlytics: ^4.0.3
+  http_interceptor: ^1.0.2
+  http: ^0.13.6
+  logger: ^2.3.0
+  uuid: ^4.4.0
+  shared_preferences: ^2.0.15
 
 
 dev_dependencies:
