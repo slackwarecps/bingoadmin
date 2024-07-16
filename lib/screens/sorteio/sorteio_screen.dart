@@ -143,7 +143,7 @@ FirebaseFirestore firestore = FirebaseFirestore.instance;
                   ElevatedButton(
                     onPressed: () {
                       // Criar um objeto Listin com as infos
-                      Sorteio listin = Sorteio(
+                      Sorteio sorteio = Sorteio(
                         id: const Uuid().v1(),
                         nome: nameController.text,
                         createdAt: DateTime.now(),
@@ -152,14 +152,14 @@ FirebaseFirestore firestore = FirebaseFirestore.instance;
 
                       // Usar id do model
                       if (model != null) {
-                        listin.id = model.id;
+                        sorteio.id = model.id;
                       }
 
                       // Salvar no Firestore
                       firestore
                           .collection("sorteio")
-                          .doc(listin.id)
-                          .set(listin.toMap());
+                          .doc(sorteio.id)
+                          .set(sorteio.toMap());
 
                       // Atualizar a lista
                       refresh();

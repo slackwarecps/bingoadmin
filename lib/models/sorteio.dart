@@ -26,21 +26,22 @@ class Sorteio {
         updatedAt = DateTime.parse(map['updatedAt'])
         ;
 
+        @override
+        String toString() {
+          return 'Sorteio(id: $id, nome: $nome, createdAt: $createdAt, updatedAt: $updatedAt)';
+        }
 
-
-  @override
-  String toString() {
-    return "$nome \ncreated_at: $createdAt\nupdated_at: $updatedAt";
-  }
+ 
 
    Map<String, dynamic> toMap() {
     return {
       'id': id,
-      'content': nome,
-      'created_at': createdAt.toString(),
-      'updated_at': updatedAt.toString(),
+      'nome': nome,
+      'createdAt': createdAt.toString(),
+      'updatedAt': updatedAt.toString(),
       
     };
+    
   }
 
 
