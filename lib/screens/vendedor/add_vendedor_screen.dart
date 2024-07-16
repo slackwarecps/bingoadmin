@@ -20,6 +20,7 @@ class AddVendedorScreen extends StatefulWidget {
 }
 
 class salvarSorteio extends State<AddVendedorScreen> {
+  
     final Logger logger = Logger();
 
   TextEditingController nomeController = TextEditingController();
@@ -28,6 +29,7 @@ class salvarSorteio extends State<AddVendedorScreen> {
   @override
   void initState() {
     nomeController.text = widget.vendedor.nome;
+    nomeController.text = "asdasdasdasd asd asd asd ";
     super.initState();
   }
 
@@ -39,27 +41,23 @@ class salvarSorteio extends State<AddVendedorScreen> {
         actions: [
           IconButton(
             onPressed: () {
-              print('salvando');
+              buttonSalvarCliked();
             },
             icon: const Icon(Icons.check),
           )
         ],
       ),
-      body: Padding(
-        padding: const EdgeInsets.all(8),
-        child: TextField(
-          controller: nomeController,
-          keyboardType: TextInputType.multiline,
-          style: const TextStyle(fontSize: 24),
-          expands: true,
-          maxLines: null,
-          minLines: null,
-        ),
-      ),
+      body: Text("teste")
+      
     );
   }
 
   
+}
+
+void buttonSalvarCliked() {
+  
+  print("salvando bota clicado...");
 }
 
 enum DisposeStatus { exit, error, success }

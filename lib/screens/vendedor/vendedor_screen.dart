@@ -1,5 +1,6 @@
 
 import 'package:bingoadmin/models/vendedor.dart';
+import 'package:bingoadmin/services/vendedor_service.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:logger/web.dart';
@@ -17,22 +18,18 @@ class _VendedorScreenState extends State<VendedorScreen> {
 List<Vendedor> listaDeVendedor = [];
 final Logger logger = Logger();
 
+VendedorService _vendedorService =  VendedorService();
+
 
 FirebaseFirestore firestore = FirebaseFirestore.instance;
 
   @override
   void initState() {
     logger.v("Verbose log");
-
     logger.d("Debug log");
-
     logger.i("Info log");
-
     logger.w("Warning log");
-
     logger.e("Error log");
-
-    logger.wtf("What a terrible failure log");
     refresh();
     super.initState();
   }
@@ -53,6 +50,7 @@ FirebaseFirestore firestore = FirebaseFirestore.instance;
       body: (1==2)? Center(child: Text("Nenhum item ainda")):  RefreshIndicator(
         onRefresh: () async {
           await Future.delayed(Duration(seconds: 1));
+          refresh();
         },
         child: ListView.builder(
           itemCount: listaDeVendedor.length,
@@ -79,23 +77,37 @@ FirebaseFirestore firestore = FirebaseFirestore.instance;
 
     List<Vendedor> temp = [];
 
-    QuerySnapshot<Map<String, dynamic>> snapshot =
-        await firestore.collection("vendedor").get();
-
-    for (var doc in snapshot.docs) {
-      temp.add(Vendedor.fromMap(doc.data()));
-    }
-
-    setState(() {
-      listaDeVendedor = temp;
+    // QuerySnapshot<Map<String, dynamic>> snapshot =
+    //     await firestore.collection("vendedor").get();
+    // for (var doc in snapshot.docs) {
+    //   temp.add(Vendedor.fromMap(doc.data()));
+    // }
+    VendedorService().getVendedores().then((value) {
+      setState(() {
+        listaDeVendedor = value;
+      });
     });
+
+    // setState(() {
+    //   listaDeVendedor = temp;
+    // });
+
   }
 
 
 //remover
  void remove(Vendedor model) {
-    firestore.collection('vendedor').doc(model.id).delete();
+    //firestore.collection('vendedor').doc(model.id).delete();
+    logger.i(model.id);
+   _vendedorService.remove(model.id).then((retorno){
+    logger.i(retorno);
+
+   });
     refresh();
+  }
+
+  void adicionaVendedor() {
+    showFormModal();
   }
 
 
