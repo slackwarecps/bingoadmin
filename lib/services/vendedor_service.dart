@@ -23,7 +23,30 @@ class VendedorService {
     return Uri.parse(getURL());
   }
 
-  Future<bool> register(Vendedor vendedor) async {
+  Future<bool> adiciona(Vendedor vendedor) async {
+    logger.i("Adicionando vendedor $getUri()");
+    vendedor.id = "";
+    String journalJSON = json.encode(vendedor.toMap());
+    logger.i(journalJSON);
+
+    String token = await getToken();
+    http.Response response = await client.post(
+      getUri(),
+      headers: {
+        'Content-type': 'application/json',
+        'Authorization': 'Bearer $token',
+      },
+      body: journalJSON,
+    );
+
+    if (response.statusCode != 200) {
+      verifyException(json.decode(response.body));
+    }
+
+    return true;
+  }
+
+    Future<bool> register(Vendedor vendedor) async {
     String journalJSON = json.encode(vendedor.toMap());
 
     String token = await getToken();

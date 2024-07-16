@@ -57,7 +57,7 @@ FirebaseFirestore firestore = FirebaseFirestore.instance;
           itemBuilder: (context, index) {
             return ListTile(
               title: Text(listaDeVendedor[index].nome),
-              subtitle: Text("adasd"),
+              subtitle: Text("ID: ${listaDeVendedor[index].id} "),
               trailing: IconButton(
                 icon: Icon(Icons.delete),
                 onPressed: () {
@@ -168,28 +168,30 @@ FirebaseFirestore firestore = FirebaseFirestore.instance;
                   ),
                   ElevatedButton(
                     onPressed: () {
+                      logger.i("NAO FEZ NADA POR ENQUANTO...");
                       // Criar um objeto Listin com as infos
-                      Vendedor vendedor = Vendedor(
-                        id: const Uuid().v1(),
-                        nome: nameController.text,
-                      );
+                      // Vendedor vendedor = Vendedor(
+                      //   id:"123",
+                        
+                      //   nome: nameController.text,
+                      // );
 
-                      // Usar id do model
-                      if (model != null) {
-                        vendedor.id = model.id;
-                      }
+                      // // Usar id do model
+                      // if (model != null) {
+                      //   vendedor.id = model.id;
+                      // }
 
                       // Salvar no Firestore
-                      firestore
-                          .collection("vendedor")
-                          .doc(vendedor.id)
-                          .set(vendedor.toMap());
+                      // firestore
+                      //     .collection("vendedor")
+                      //     .doc(vendedor.id)
+                      //     .set(vendedor.toMap());
 
                       // Atualizar a lista
-                      refresh();
+                      //refresh();
 
                       // Fechar o Modal
-                      Navigator.pop(context);
+                     // Navigator.pop(context);
                     },
                     child: Text(labelConfirmationButton),
                   ),
