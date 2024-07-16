@@ -42,12 +42,13 @@ FirebaseFirestore firestore = FirebaseFirestore.instance;
     return Scaffold(
        floatingActionButton: FloatingActionButton(
         onPressed: () {
-          showFormModal();
+          logger.i("Clicou em adicionar vendedor");
+          Navigator.pushNamed(context, 'vendedores-add');
         },
         child: const Icon(Icons.add),
       ),
       appBar: AppBar(
-        title: Text('Vendedor'),
+        title: Text('Vendedores'),
       ),
       body: (1==2)? Center(child: Text("Nenhum item ainda")):  RefreshIndicator(
         onRefresh: () async {

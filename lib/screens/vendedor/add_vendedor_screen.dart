@@ -9,7 +9,7 @@ class AddVendedorScreen extends StatefulWidget {
 
   final Vendedor vendedor;
   final bool isEditing;
-  const AddVendedorScreen({
+  const AddVendedorScreen( {
     Key? key,
     required this.vendedor,
     required this.isEditing,
@@ -27,9 +27,6 @@ class salvarSorteio extends State<AddVendedorScreen> {
 
   @override
   void initState() {
-
-
-
     nomeController.text = widget.vendedor.nome;
     super.initState();
   }

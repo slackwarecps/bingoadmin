@@ -1,3 +1,4 @@
+import 'package:bingoadmin/models/vendedor.dart';
 import 'package:bingoadmin/screens/cartela_screen.dart';
 import 'package:bingoadmin/screens/componentes/theme_Data.dart';
 import 'package:bingoadmin/screens/diversos_screen.dart';
@@ -5,6 +6,7 @@ import 'package:bingoadmin/screens/home_admin_screen.dart';
 import 'package:bingoadmin/screens/sorteio/sorteio_manual_screen.dart';
 import 'package:bingoadmin/screens/sorteio/sorteio_screen.dart';
 import 'package:bingoadmin/screens/teste_screen.dart';
+import 'package:bingoadmin/screens/vendedor/add_vendedor_screen.dart';
 import 'package:bingoadmin/screens/vendedor/vendedor_screen.dart';
 
 import 'package:firebase_core/firebase_core.dart';
@@ -56,6 +58,7 @@ class MyApp extends StatelessWidget {
         "sorteios": (context) => SorteioScreen(),
         "cartelas": (context) => CartelaScreen(),
         "vendedores": (context) => VendedorScreen(),
+     
         "sorteio-manual": (context) => SorteioManualScreen(),
       },
       onGenerateRoute: (settings) {
@@ -63,6 +66,14 @@ class MyApp extends StatelessWidget {
           //final Credito credito = settings.arguments as Credito;
           return MaterialPageRoute(builder: (context) {
             return TesteScreen();
+          });
+        }
+
+        if (settings.name == "vendedores-add") {
+          //final Credito credito = settings.arguments as Credito;
+          return MaterialPageRoute(builder: (context) {
+
+            return AddVendedorScreen(vendedor: Vendedor.empty(),isEditing: false,);
           });
         }
         assert(false, 'Precisar ser Implementado ${settings.name}');
