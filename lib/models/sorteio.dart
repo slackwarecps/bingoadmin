@@ -14,28 +14,34 @@ class Sorteio {
   });
 
   Sorteio.empty()
-      : id = Uuid().v1(),
+      : id = const Uuid().v1(),
         nome = "",
         createdAt = DateTime.now(),
         updatedAt = DateTime.now();
 
-  Map<String, dynamic> toMap() {
-    return {
-      'id': id,
-      'nome': nome,
-      'created_at': createdAt.toString(),
-      'updated_at': updatedAt.toString(),
-    };
-  }
-
   Sorteio.fromMap(Map<String, dynamic> map)
-      : id = map['id'],
+        : id = map['id'],
         nome = map['nome'],
-        createdAt = DateTime.tryParse(map['created_at']) ?? DateTime.now(),
-        updatedAt = DateTime.tryParse(map['updated_at']) ?? DateTime.now();
+        createdAt = DateTime.parse(map['createdAt']),
+        updatedAt = DateTime.parse(map['updatedAt'])
+        ;
+
+
 
   @override
   String toString() {
     return "$nome \ncreated_at: $createdAt\nupdated_at: $updatedAt";
   }
+
+   Map<String, dynamic> toMap() {
+    return {
+      'id': id,
+      'content': nome,
+      'created_at': createdAt.toString(),
+      'updated_at': updatedAt.toString(),
+      
+    };
+  }
+
+
 }

@@ -24,6 +24,8 @@ class TesteScreen extends StatelessWidget {
           child: Column(
           
             children: [
+
+              CircularProgressIndicator(),
                  Text(
                 'Teste Screen color Primary',
                 style: TextStyle(fontSize: 24, color: Theme.of(context).colorScheme.surface),

@@ -15,6 +15,9 @@ import 'package:flutter/material.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
+  DateTime now = DateTime.now();
+    print("Agora é: $now");
+
   //CRASHLYTICS
   await Firebase.initializeApp();
   FirebaseCrashlytics.instance.setUserIdentifier("26721993880");
@@ -44,7 +47,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Flutter Demo',
       theme: myTheme,
-      initialRoute: "teste",
+      initialRoute: "home",
       routes: {
         "teste": (context) => TesteScreen(),
         "diversos": (context) => DiversosScreen(),
