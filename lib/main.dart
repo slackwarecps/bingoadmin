@@ -5,7 +5,8 @@ import 'package:bingoadmin/screens/home_admin_screen.dart';
 import 'package:bingoadmin/screens/sorteio/sorteio_manual_screen.dart';
 import 'package:bingoadmin/screens/sorteio/sorteio_screen.dart';
 import 'package:bingoadmin/screens/teste_screen.dart';
-import 'package:bingoadmin/screens/vendedor_screen.dart';
+import 'package:bingoadmin/screens/vendedor/vendedor_screen.dart';
+
 import 'package:firebase_core/firebase_core.dart';
 
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';

@@ -1,6 +1,6 @@
 import 'package:bingoadmin/screens/componentes/box_card.dart';
 import 'package:bingoadmin/screens/componentes/drawer_admin.dart';
-import 'package:bingoadmin/screens/vendedor_screen.dart';
+
 import 'package:flutter/material.dart';
 
 class TesteScreen extends StatelessWidget {
