@@ -1,4 +1,4 @@
-import 'package:bingoadmin/screens/componentes/theme_Data.dart';
+
 import 'package:flutter/material.dart';
 
 Drawer DrawerAdmin(BuildContext context) {
@@ -42,6 +42,13 @@ Drawer DrawerAdmin(BuildContext context) {
           },          
         ),
 
+  ListTile(
+          title: const Text('Jogador'),
+          leading: Icon(Icons.co_present_outlined),
+          onTap: () {
+            Navigator.pushNamed(context, 'jogadores');
+          },          
+        ),
 
          ListTile(
           title: const Text('Cartelas'),

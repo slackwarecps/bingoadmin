@@ -1,13 +1,15 @@
 import 'package:bingoadmin/models/vendedor.dart';
 import 'package:bingoadmin/screens/cartela_screen.dart';
-import 'package:bingoadmin/screens/componentes/theme_Data.dart';
+
 import 'package:bingoadmin/screens/diversos_screen.dart';
 import 'package:bingoadmin/screens/home_admin_screen.dart';
+import 'package:bingoadmin/screens/jogador/jogador_screen.dart';
 import 'package:bingoadmin/screens/sorteio/sorteio_manual_screen.dart';
 import 'package:bingoadmin/screens/sorteio/sorteio_screen.dart';
 import 'package:bingoadmin/screens/teste_screen.dart';
 import 'package:bingoadmin/screens/vendedor/add_vendedor_screen.dart';
 import 'package:bingoadmin/screens/vendedor/vendedor_screen.dart';
+import 'package:bingoadmin/tema/my_theme.dart';
 
 import 'package:firebase_core/firebase_core.dart';
 
@@ -49,7 +51,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Flutter Demo',
-      theme: myTheme,
+      theme: MyTheme,
       initialRoute: "home",
       routes: {
         "teste": (context) => TesteScreen(),
@@ -58,6 +60,7 @@ class MyApp extends StatelessWidget {
         "sorteios": (context) => SorteioScreen(),
         "cartelas": (context) => CartelaScreen(),
         "vendedores": (context) => VendedorScreen(),
+        "jogadores": (context) => JogadorScreen(),
      
         "sorteio-manual": (context) => SorteioManualScreen(),
       },
