@@ -1,36 +1,40 @@
-import 'package:bingoadmin/models/jogador.dart';
+
+import 'package:bingoadmin/models/sorteio.dart';
 import 'package:flutter/material.dart';
 
 
 // LISTA DE JOGADORES - UNICA FONTE DE VERDADE
 // escuta as mudanças e notifica os listeners
 // ideia do singleton
-class Jogadores extends ChangeNotifier{
-    List<Jogador> jogadores = [];
+class Sorteios extends ChangeNotifier{
+    List<Sorteio> sorteios = [];
 
 
     // Construtor
-    Jogadores({
-      required this.jogadores
+    Sorteios({
+      required this.sorteios
     });
 
     // Adiciona um jogador
-    void addJogador(Jogador jogador){
-      jogadores.add(jogador);
+    void addSorteio(Sorteio sorteio){
+      sorteios.add(sorteio);
 
       // Notifica os listeners
       notifyListeners();
     }
 
     void remove(int index) {
-      jogadores.removeAt(index);
+      sorteios.removeAt(index);
       notifyListeners();
     }
 
-  void setJogadores(List<Jogador> jogadores) {
-    this.jogadores = jogadores;
+
+  void setSorteios(List<Sorteio> sorteios) {
+    this.sorteios = sorteios;
     notifyListeners();
   }
+
+
 
 
 

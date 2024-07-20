@@ -2,6 +2,7 @@ import 'dart:ffi';
 
 import 'package:bingoadmin/models/jogador.dart';
 import 'package:bingoadmin/models/Jogadores.dart';
+import 'package:bingoadmin/models/sorteios.dart';
 import 'package:bingoadmin/models/vendedor.dart';
 import 'package:bingoadmin/screens/cartela_screen.dart';
 
@@ -47,10 +48,14 @@ void main() async {
   //CRASHLYTICS
 
   //Provider - Inicializa o Provider
-  runApp(ChangeNotifierProvider(
-    create: (context) => Jogadores(jogadores: []),
-    child: const MyApp(),
-  ));
+  // Provider - Inicializa o Provider
+  runApp(
+    MultiProvider(
+        providers: [
+          ChangeNotifierProvider(create: (context) => Jogadores(jogadores: []),),
+          ChangeNotifierProvider(create: (context) => Sorteios(sorteios: []))  
+            ],
+        child:const MyApp()));
 
   //runApp(const MyApp());
 }

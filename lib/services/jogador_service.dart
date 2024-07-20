@@ -10,7 +10,7 @@ import 'package:logger/web.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class JogadorService {
-  static const String resource = "jogador";
+  static const String resource = "jogador/";
 
   http.Client client = WebClient().client;
 
@@ -111,28 +111,28 @@ class JogadorService {
     return result;
   }
 
-    Future<List<Jogador>> getJogadores() async {
-    String token = await getToken();
-    http.Response response = await client.get(
-      Uri.parse("${WebClient.url}$resource"),
-      headers: {
-        'Content-type': 'application/json',
-        'Authorization': 'Bearer $token',
-      },
-    );
+  Future<List<Jogador>> getJogadores() async {
+        String token = await getToken();
+        http.Response response = await client.get(
+          Uri.parse("${WebClient.url}$resource"),
+          headers: {
+            'Content-type': 'application/json',
+            'Authorization': 'Bearer $token',
+          },
+        );
 
-    if (response.statusCode != 200) {
-      verifyException(json.decode(response.body));
-    }
+        if (response.statusCode != 200) {
+          verifyException(json.decode(response.body));
+        }
 
-    List<Jogador> result = [];
+        List<Jogador> result = [];
 
-    List<dynamic> jsonList = json.decode(response.body);
-    for (var jsonMap in jsonList) {
-      result.add(Jogador.fromMap(jsonMap));
-    }
+        List<dynamic> jsonList = json.decode(response.body);
+        for (var jsonMap in jsonList) {
+          result.add(Jogador.fromMap(jsonMap));
+        }
 
-    return result;
+        return result;
   }
 
 

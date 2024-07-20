@@ -1,6 +1,10 @@
 import 'package:bingoadmin/models/sorteio.dart';
+import 'package:bingoadmin/models/sorteios.dart';
+import 'package:bingoadmin/services/sorteio_service.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:logger/logger.dart';
+import 'package:provider/provider.dart';
 import 'package:uuid/uuid.dart';
 
 class SorteioScreen extends StatefulWidget {
@@ -12,9 +16,13 @@ class SorteioScreen extends StatefulWidget {
 }
 
 class _SorteioScreenState extends State<SorteioScreen> {
+
 List<Sorteio> listaDeSorteio = [];
 
 
+SorteioService _sorteioService =  SorteioService();
+
+final Logger logger = Logger();
 
 FirebaseFirestore firestore = FirebaseFirestore.instance;
 
@@ -36,25 +44,25 @@ FirebaseFirestore firestore = FirebaseFirestore.instance;
       appBar: AppBar(
         title: Text('Sorteio'),
       ),
-      body: (1==2)? Center(child: Text("Nenhum item ainda")):  RefreshIndicator(
-        onRefresh: () async {
-          await Future.delayed(Duration(seconds: 1));
-        },
-        child: ListView.builder(
-          itemCount: listaDeSorteio.length,
-          itemBuilder: (context, index) {
-            return ListTile(
-              title: Text(listaDeSorteio[index].nome),
-              subtitle: Text(listaDeSorteio[index].createdAt.toString()),
-              trailing: IconButton(
-                icon: Icon(Icons.delete),
-                onPressed: () {
-                  remove(listaDeSorteio[index]);
+      body: Consumer<Sorteios>(
+        builder: (BuildContext context, Sorteios list, Widget? widget) {
+          return ListView.builder(
+            itemCount: list.sorteios.length,
+            itemBuilder: (context, index) {
+              return Dismissible(
+                key: UniqueKey(),
+                background: Container(color: Colors.red),
+                child: ListTile(
+                  leading: Icon(Icons.person_2),
+                  title: Text(list.sorteios[index].nome + ' ('+ list.sorteios[index].id + ')'),
+                ),
+                onDismissed: (direction) {
+                 print("clicou no botao");
                 },
-              ),
-            );
-          },
-        ),
+              );
+            },
+          );
+        },
       ),
     );
   }
@@ -63,24 +71,23 @@ FirebaseFirestore firestore = FirebaseFirestore.instance;
   refresh() async {
     
 
-    List<Sorteio> temp = [];
-
-    QuerySnapshot<Map<String, dynamic>> snapshot =
-        await firestore.collection("sorteio").get();
-
-    for (var doc in snapshot.docs) {
-      temp.add(Sorteio.fromMap(doc.data()));
-    }
-
-    setState(() {
-      listaDeSorteio = temp;
-    });
+   await _sorteioService.getSorteios().then((sorteios) {
+    Provider.of<Sorteios>(context, listen: false).setSorteios(sorteios);
+   
+  });
   }
 
 
 //remover
  void remove(Sorteio model) {
-    firestore.collection('sorteio').doc(model.id).delete();
+
+   logger.i(model.id);
+   _sorteioService.remove(model.id).then((retorno){
+    logger.i(retorno);
+
+   });
+
+
     refresh();
   }
 
