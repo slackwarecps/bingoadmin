@@ -1,4 +1,7 @@
+import 'dart:ffi';
+
 import 'package:bingoadmin/models/jogador.dart';
+import 'package:bingoadmin/models/Jogadores.dart';
 import 'package:bingoadmin/models/vendedor.dart';
 import 'package:bingoadmin/screens/cartela_screen.dart';
 
@@ -18,6 +21,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -42,7 +46,13 @@ void main() async {
   FirebaseCrashlytics.instance.setCrashlyticsCollectionEnabled(true);
   //CRASHLYTICS
 
-  runApp(const MyApp());
+  //Provider - Inicializa o Provider
+  runApp(ChangeNotifierProvider(
+    create: (context) => Jogadores(jogadores: []),
+    child: const MyApp(),
+  ));
+
+  //runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
@@ -54,7 +64,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Flutter Demo',
       theme: MyTheme,
-      initialRoute: "teste",
+      initialRoute: "home",
       routes: {
         "teste": (context) => TesteScreen(),
         "diversos": (context) => DiversosScreen(),

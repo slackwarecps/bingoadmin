@@ -1,23 +1,21 @@
 
 
-import 'package:bingoadmin/models/Jogadores.dart';
 import 'package:bingoadmin/models/jogador.dart';
 import 'package:bingoadmin/services/jogador_service.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:logger/web.dart';
-import 'package:provider/provider.dart';
 
 
-class JogadorScreen extends StatefulWidget {
+class JogadorScreenBkp extends StatefulWidget {
 
-  const JogadorScreen({super.key});
+  const JogadorScreenBkp({super.key});
 
   @override
-  State<JogadorScreen> createState() => _JogadorScreenState();
+  State<JogadorScreenBkp> createState() => _JogadorScreenBkpState();
 }
 
-class _JogadorScreenState extends State<JogadorScreen> {
+class _JogadorScreenBkpState extends State<JogadorScreenBkp> {
 
 
 List<Jogador> listaDeJogadores = [];
@@ -50,38 +48,42 @@ FirebaseFirestore firestore = FirebaseFirestore.instance;
       appBar: AppBar(
         title: Text('Jogadores'),
       ),
-      body: Consumer<Jogadores>(
-        builder: (BuildContext context, Jogadores list, Widget? widget) {
-          return ListView.builder(
-            itemCount: list.jogadores.length,
-            itemBuilder: (context, index) {
-              return Dismissible(
-                key: UniqueKey(),
-                background: Container(color: Colors.red),
-                child: ListTile(
-                  leading: Icon(Icons.person_2),
-                  title: Text(list.jogadores[index].nome + ' ('+ list.jogadores[index].id + ')'),
-                ),
-                onDismissed: (direction) {
-                 print("clicou no botao");
-                },
-              );
-            },
-          );
+      body: (1==2)? Center(child: Text("Nenhum item ainda")):  RefreshIndicator(
+        onRefresh: () async {
+          await Future.delayed(Duration(seconds: 1));
+          refresh();
         },
+        child: ListView.builder(
+          itemCount: listaDeJogadores.length,
+          itemBuilder: (context, index) {
+            return ListTile(
+              title: Text(listaDeJogadores[index].nome),
+              subtitle: Text("ID: ${listaDeJogadores[index].id} "),
+              trailing: IconButton(
+                icon: Icon(Icons.delete),
+                onPressed: () {
+                  remove(listaDeJogadores[index]);
+                },
+              ),
+            );
+          },
+        ),
       ),
-   
     );
   }
 
 //atualizar
-  refresh() async {  
- //List<Jogador> jogadores = await _jogadorService.getJogadores();
+  refresh() async {
+    
 
-  await _jogadorService.getJogadores().then((jogadores) {
-    Provider.of<Jogadores>(context, listen: false).setJogadores(jogadores);
-   
-  });
+    List<Jogador> temp = [];
+
+  
+    await _jogadorService.getJogadores().then((value) {
+      setState(() {
+        listaDeJogadores = value;
+      });
+    });
 
   
 
