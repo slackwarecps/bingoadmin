@@ -1,5 +1,7 @@
 import 'package:bingoadmin/screens/componentes/box_card.dart';
 import 'package:bingoadmin/screens/componentes/drawer_admin.dart';
+import 'package:bingoadmin/screens/teste/teste_acoes.dart';
+import 'package:bingoadmin/screens/teste/teste_pontos.dart';
 import 'package:bingoadmin/tema/theme_colors.dart';
 
 import 'package:flutter/material.dart';
@@ -22,7 +24,17 @@ class TesteScreen extends StatelessWidget {
           child: Column(
           
             children: [
+              Text("pois é..."),
+              LinearProgressIndicator(value: 0.0,minHeight: 25,),
               HeaderFabao(),
+              TesteAcoes(),
+               TestePontos(),
+                LinearProgressIndicator(minHeight: 25,),
+                Text("Alguma coisa escrita aqui para ser colocado dentro da tela \$1500.00. bla bla bla e la vamos nos."),
+                TextButton(onPressed: (){
+                  print('voce cl;icou');
+                  
+                }, child: Text("Clique aqui"),),
 
               CircularProgressIndicator(),
                  Text(

@@ -1,6 +1,8 @@
 
+import 'package:bingoadmin/models/jogador.dart';
 import 'package:bingoadmin/models/vendedor.dart';
-import 'package:bingoadmin/services/vendedor_service.dart';
+import 'package:bingoadmin/services/jogador_service.dart';
+
 
 import 'package:flutter/material.dart';
 import 'package:logger/web.dart';
@@ -8,11 +10,11 @@ import 'package:logger/web.dart';
 class AddJogadorScreen extends StatefulWidget {
 
 
-  final Vendedor vendedor;
+  final Jogador jogador;
   final bool isEditing;
   const AddJogadorScreen( {
     Key? key,
-    required this.vendedor,
+    required this.jogador,
     required this.isEditing,
   }) : super(key: key);
 
@@ -26,11 +28,11 @@ class salvarSorteio extends State<AddJogadorScreen> {
     
 
   TextEditingController nomeController = TextEditingController();
-VendedorService _vendedorService =  VendedorService();
+JogadorService _jogadorService =  JogadorService();
 
   @override
   void initState() {
-    nomeController.text = widget.vendedor.nome;
+    nomeController.text = widget.jogador.nome;
     nomeController.text = "Batata Frita 123";
     super.initState();
   }
@@ -41,7 +43,7 @@ VendedorService _vendedorService =  VendedorService();
     
     return Scaffold(
       appBar: AppBar(
-        title: Text("Adicionar Vendedor"),
+        title: Text("Adicionar jogador"),
         actions: [
           IconButton(
             onPressed: () {
@@ -68,7 +70,8 @@ VendedorService _vendedorService =  VendedorService();
   }
 
   void buttonSalvarCliked(String nome) {
-  _vendedorService.adiciona(Vendedor(id: "123",nome: nome)).then((retorno){
+  _jogadorService.adiciona(Jogador(id: "123",nome: nome, saldo: 47,createdAt: DateTime.now(),
+                        updatedAt: DateTime.now())).then((retorno){
     print("salvando bota clicado...");
     print(retorno);
     Navigator.pop(context, DisposeStatus.success);

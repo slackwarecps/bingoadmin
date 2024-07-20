@@ -24,6 +24,13 @@ class Jogador {
         createdAt = DateTime.now(),
         updatedAt = DateTime.now();
 
+    Jogador.fromMap(Map<String, dynamic> map)
+      : id = map['id'],
+        nome = map['nome'],
+        saldo = map['saldo'],
+        createdAt = map['created_at'] != null ? DateTime.parse(map['created_at']) : DateTime.now(),  
+        updatedAt = map['updated_at']  != null ? DateTime.parse(map['updated_at']) : DateTime.now();
+
   Map<String, dynamic> toMap() {
     return {
       'id': id,

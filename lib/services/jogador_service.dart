@@ -1,7 +1,8 @@
 import 'dart:convert';
 import 'dart:io';
 
-import 'package:bingoadmin/models/vendedor.dart';
+import 'package:bingoadmin/models/jogador.dart';
+
 import 'package:bingoadmin/services/web_client.dart';
 
 import 'package:http/http.dart' as http;
@@ -23,10 +24,10 @@ class JogadorService {
     return Uri.parse(getURL());
   }
 
-  Future<bool> adiciona(Vendedor vendedor) async {
-    logger.i("Adicionando vendedor $getUri()");
-    vendedor.id = "";
-    String journalJSON = json.encode(vendedor.toMap());
+  Future<bool> adiciona(Jogador jogador) async {
+    logger.i("Adicionando Jogador $getUri()");
+    jogador.id = "";
+    String journalJSON = json.encode(jogador.toMap());
     logger.i(journalJSON);
 
     String token = await getToken();
@@ -46,8 +47,8 @@ class JogadorService {
     return true;
   }
 
-    Future<bool> register(Vendedor vendedor) async {
-    String journalJSON = json.encode(vendedor.toMap());
+    Future<bool> register(Jogador jogador) async {
+    String journalJSON = json.encode(jogador.toMap());
 
     String token = await getToken();
     http.Response response = await client.post(
@@ -66,8 +67,8 @@ class JogadorService {
     return true;
   }
 
-  Future<bool> edit(String id, Vendedor vendedor) async {
-    String journalJSON = json.encode(vendedor.toMap());
+  Future<bool> edit(String id, Jogador jogador) async {
+    String journalJSON = json.encode(jogador.toMap());
 
     String token = await getToken();
     http.Response response = await client.put(
@@ -86,7 +87,7 @@ class JogadorService {
     return true;
   }
 
-  Future<List<Vendedor>> getAll(String id) async {
+  Future<List<Jogador>> getAll(String id) async {
     String token = await getToken();
     http.Response response = await client.get(
       Uri.parse("${WebClient.url}users/$id/$resource"),
@@ -100,17 +101,17 @@ class JogadorService {
       verifyException(json.decode(response.body));
     }
 
-    List<Vendedor> result = [];
+    List<Jogador> result = [];
 
     List<dynamic> jsonList = json.decode(response.body);
     for (var jsonMap in jsonList) {
-      result.add(Vendedor.fromMap(jsonMap));
+      result.add(Jogador.fromMap(jsonMap));
     }
 
     return result;
   }
 
-    Future<List<Vendedor>> getVendedores() async {
+    Future<List<Jogador>> getJogadores() async {
     String token = await getToken();
     http.Response response = await client.get(
       Uri.parse("${WebClient.url}$resource"),
@@ -124,11 +125,11 @@ class JogadorService {
       verifyException(json.decode(response.body));
     }
 
-    List<Vendedor> result = [];
+    List<Jogador> result = [];
 
     List<dynamic> jsonList = json.decode(response.body);
     for (var jsonMap in jsonList) {
-      result.add(Vendedor.fromMap(jsonMap));
+      result.add(Jogador.fromMap(jsonMap));
     }
 
     return result;

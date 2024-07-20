@@ -1,12 +1,14 @@
+import 'package:bingoadmin/models/jogador.dart';
 import 'package:bingoadmin/models/vendedor.dart';
 import 'package:bingoadmin/screens/cartela_screen.dart';
 
 import 'package:bingoadmin/screens/diversos_screen.dart';
 import 'package:bingoadmin/screens/home_admin_screen.dart';
+import 'package:bingoadmin/screens/jogador/add_jogador_screen.dart';
 import 'package:bingoadmin/screens/jogador/jogador_screen.dart';
 import 'package:bingoadmin/screens/sorteio/sorteio_manual_screen.dart';
 import 'package:bingoadmin/screens/sorteio/sorteio_screen.dart';
-import 'package:bingoadmin/screens/teste_screen.dart';
+import 'package:bingoadmin/screens/teste/teste_screen.dart';
 import 'package:bingoadmin/screens/vendedor/add_vendedor_screen.dart';
 import 'package:bingoadmin/screens/vendedor/vendedor_screen.dart';
 import 'package:bingoadmin/tema/my_theme.dart';
@@ -52,7 +54,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Flutter Demo',
       theme: MyTheme,
-      initialRoute: "home",
+      initialRoute: "teste",
       routes: {
         "teste": (context) => TesteScreen(),
         "diversos": (context) => DiversosScreen(),
@@ -75,10 +77,16 @@ class MyApp extends StatelessWidget {
         if (settings.name == "vendedores-add") {
           //final Credito credito = settings.arguments as Credito;
           return MaterialPageRoute(builder: (context) {
-
             return AddVendedorScreen(vendedor: Vendedor.empty(),isEditing: false,);
           });
         }
+
+          if (settings.name == "jogadores-add") {
+          //final Credito credito = settings.arguments as Credito;
+          return MaterialPageRoute(builder: (context) {
+            return AddJogadorScreen(jogador: Jogador.empty(),isEditing: false,);
+          });
+        }      
         assert(false, 'Precisar ser Implementado ${settings.name}');
         return null;
       },

@@ -1,10 +1,11 @@
 
-import 'package:bingoadmin/models/vendedor.dart';
-import 'package:bingoadmin/services/vendedor_service.dart';
+
+import 'package:bingoadmin/models/jogador.dart';
+import 'package:bingoadmin/services/jogador_service.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:logger/web.dart';
-import 'package:uuid/uuid.dart';
+
 
 class JogadorScreen extends StatefulWidget {
 
@@ -15,21 +16,17 @@ class JogadorScreen extends StatefulWidget {
 }
 
 class _JogadorScreenState extends State<JogadorScreen> {
-List<Vendedor> listaDeVendedor = [];
+List<Jogador> listaDeVendedor = [];
 final Logger logger = Logger();
 
-VendedorService _vendedorService =  VendedorService();
+JogadorService _jogadorService =  JogadorService();
 
 
 FirebaseFirestore firestore = FirebaseFirestore.instance;
 
   @override
   void initState() {
-    logger.v("Verbose log");
-    logger.d("Debug log");
-    logger.i("Info log");
-    logger.w("Warning log");
-    logger.e("Error log");
+  
     refresh();
     super.initState();
   }
@@ -39,13 +36,13 @@ FirebaseFirestore firestore = FirebaseFirestore.instance;
     return Scaffold(
        floatingActionButton: FloatingActionButton(
         onPressed: () {
-          logger.i("Clicou em adicionar vendedor");
-          Navigator.pushNamed(context, 'vendedores-add');
+          logger.i("Clicou em adicionar jogador");
+          Navigator.pushNamed(context, 'jogadores-add');
         },
         child: const Icon(Icons.add),
       ),
       appBar: AppBar(
-        title: Text('Vendedores'),
+        title: Text('Jogadores'),
       ),
       body: (1==2)? Center(child: Text("Nenhum item ainda")):  RefreshIndicator(
         onRefresh: () async {
@@ -75,31 +72,25 @@ FirebaseFirestore firestore = FirebaseFirestore.instance;
   refresh() async {
     
 
-    List<Vendedor> temp = [];
+    List<Jogador> temp = [];
 
-    // QuerySnapshot<Map<String, dynamic>> snapshot =
-    //     await firestore.collection("vendedor").get();
-    // for (var doc in snapshot.docs) {
-    //   temp.add(Vendedor.fromMap(doc.data()));
-    // }
-    VendedorService().getVendedores().then((value) {
+  
+    await _jogadorService.getJogadores().then((value) {
       setState(() {
         listaDeVendedor = value;
       });
     });
 
-    // setState(() {
-    //   listaDeVendedor = temp;
-    // });
+  
 
   }
 
 
 //remover
- void remove(Vendedor model) {
-    //firestore.collection('vendedor').doc(model.id).delete();
+ void remove(Jogador model) {
+
     logger.i(model.id);
-   _vendedorService.remove(model.id).then((retorno){
+   _jogadorService.remove(model.id).then((retorno){
     logger.i(retorno);
 
    });
@@ -112,7 +103,7 @@ FirebaseFirestore firestore = FirebaseFirestore.instance;
 
 
 //Mostra Formulario
-  showFormModal({Vendedor? model}) {
+  showFormModal({Jogador? model}) {
     // Labels à serem mostradas no Modal
     String labelTitle = "Adicionar Vendedor";
     String labelConfirmationButton = "Salvar";
@@ -169,29 +160,7 @@ FirebaseFirestore firestore = FirebaseFirestore.instance;
                   ElevatedButton(
                     onPressed: () {
                       logger.i("NAO FEZ NADA POR ENQUANTO...");
-                      // Criar um objeto Listin com as infos
-                      // Vendedor vendedor = Vendedor(
-                      //   id:"123",
-                        
-                      //   nome: nameController.text,
-                      // );
-
-                      // // Usar id do model
-                      // if (model != null) {
-                      //   vendedor.id = model.id;
-                      // }
-
-                      // Salvar no Firestore
-                      // firestore
-                      //     .collection("vendedor")
-                      //     .doc(vendedor.id)
-                      //     .set(vendedor.toMap());
-
-                      // Atualizar a lista
-                      //refresh();
-
-                      // Fechar o Modal
-                     // Navigator.pop(context);
+                    
                     },
                     child: Text(labelConfirmationButton),
                   ),
