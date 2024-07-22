@@ -44,6 +44,7 @@ FirebaseFirestore firestore = FirebaseFirestore.instance;
             onPressed: () {
               refresh();
             },
+            
             icon: const Icon(Icons.refresh),
           ),
         ],
@@ -74,6 +75,7 @@ FirebaseFirestore firestore = FirebaseFirestore.instance;
                           print('Recarregando a tela inicial');
                         }))
                   },
+                  
                   leading: Icon(Icons.person_2),
                   title: Text(list.sorteios[index].nome + ' ('+ list.sorteios[index].local + ')'),
                 ),

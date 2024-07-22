@@ -56,7 +56,6 @@ final Logger logger = Logger();
         if (response.statusCode != 200) {
           verifyException(json.decode(response.body));
         }
-
         //inicializa a lista
         List<Sorteio> result = [];
 
@@ -64,18 +63,11 @@ final Logger logger = Logger();
         List<dynamic> jsonList = json.decode(response.body);
 
         //converte para objeto
-        for (var jsonMap in jsonList) {
-          logger.i(jsonMap);
-           if ( jsonMap['updatedAt']==null) {
-            print (DateTime.now());
-            print("NULLO");
-           }
-        
+        for (var jsonMap in jsonList) {       
           //adiciona na lista 
           // converte o json para um objeto Sorteio
           result.add(Sorteio.fromMap(jsonMap));
         }
-
         //retorna a lista preenchida
         return result;
   }

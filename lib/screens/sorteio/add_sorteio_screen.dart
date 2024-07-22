@@ -133,54 +133,7 @@ class _SorteioAddScreenState extends State<SorteioAddScreen> {
                  
                   ElevatedButton(
                     onPressed: () {
-                      if (_formKey.currentState!.validate()) {
-                        print(nomeController.text);
-                        print(localController.text);
-                        
-
-                        if (_isEditando==true){
-                            _sorteioService.updateSorteio(widget.sorteio.id, Sorteio(
-                               id: widget.sorteio.id,
-                               nome: nomeController.text,
-                               local: localController.text,
-                               createdAt: widget.sorteio.createdAt,
-                               updatedAt: DateTime.now(),
-                             ));
-
-                                  ScaffoldMessenger.of(context).showSnackBar(
-                          const SnackBar(
-                            content: Text('Atualizando o sorteio'),
-                            backgroundColor: Colors.green,
-                          ),
-                        );
-
-                       
-                        }else{                             
-                                _sorteioService.adicionarSorteio(Sorteio(
-                               id: "",
-                               nome: nomeController.text,
-                               local: localController.text,
-                               createdAt: DateTime.now(),
-                               updatedAt: DateTime.now(),
-                             ));
-
-                                  ScaffoldMessenger.of(context).showSnackBar(
-                          const SnackBar(
-                            content: Text('Criando um novo Sorteio'),
-                            backgroundColor: Colors.blue,
-                          ),
-                        );
-                        }
-                 
-
-
-                        ScaffoldMessenger.of(context).showSnackBar(
-                          const SnackBar(
-                            content: Text('Criando um novo Sorteio'),
-                          ),
-                        );
-                        Navigator.pop(context);
-                      }
+                      buttonSalvarSorteioClicked();
                     },
                     child: _isEditando?Text('Atualizar o Sorteio'):Text('Adicionar Sorteio'),
                   ),
@@ -192,4 +145,60 @@ class _SorteioAddScreenState extends State<SorteioAddScreen> {
       ),
     );
   }
+
+void buttonSalvarSorteioClicked(){
+  logger.i("EVENTO: BOTAO SALVAR SORTEIO CLICADO");
+
+   if (_formKey.currentState!.validate()) {
+      print(nomeController.text);
+      print(localController.text);
+      
+
+      if (_isEditando==true){
+          _sorteioService.updateSorteio(widget.sorteio.id, Sorteio(
+              id: widget.sorteio.id,
+              nome: nomeController.text,
+              local: localController.text,
+              createdAt: widget.sorteio.createdAt,
+              updatedAt: DateTime.now(),
+            ));
+
+                ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text('Atualizando o sorteio'),
+          backgroundColor: Colors.green,
+        ),
+      );
+      
+      }else{                             
+        _sorteioService.adicionarSorteio(Sorteio(
+              id: "",
+              nome: nomeController.text,
+              local: localController.text,
+              createdAt: DateTime.now(),
+              updatedAt: DateTime.now(),
+            )).then((value){
+              if (value){
+                Navigator.pop(context, DisposeStatus.success);
+              }else{
+                Navigator.pop(context, DisposeStatus.error);
+              }
+            });
+
+                ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text('Criando um novo Sorteio'),
+          backgroundColor: Colors.blue,
+        ),
+      );
+      }
+
+      Navigator.pop(context);
+    }
+
 }
+
+}
+
+
+enum DisposeStatus { exit, error, success }
