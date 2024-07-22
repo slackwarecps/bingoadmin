@@ -50,50 +50,57 @@ FirebaseFirestore firestore = FirebaseFirestore.instance;
         ],
       ),
       body: Consumer<Sorteios>(
+        
         builder: (BuildContext context, Sorteios list, Widget? widget) {
-          return ListView.builder(
-            itemCount: list.sorteios.length,
-            itemBuilder: (context, index) {
-              return Dismissible(
-                key: UniqueKey(),
-                background: Container(color: Colors.red),
-                child: ListTile(
-                  onTap: (){
-                    logger.i(" #ONTAP Clicou no item da lista");
-                  },
-                  onLongPress: () => {
-                    logger.i(" #ONLONGPRESS Clicou no item da lista"),
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => SorteioAddScreen(
-                          taskContext: context,
-                          sorteio: list.sorteios[index],
-                        ),
-                      ),
-                    ).then((value) => setState(() {
-                          print('Recarregando a tela inicial');
-                        }))
-                  },
-                  
-                  leading: Icon(Icons.person_2),
-                  title: Text(list.sorteios[index].nome + ' ('+ list.sorteios[index].local + ')'),
-                ),
-                onDismissed: (direction) {
-               
-                  print("clicou no dimissed");
-                  print(list.sorteios[index]);
-                  remove(list.sorteios[index]);
-                },
-              );
+          return RefreshIndicator(
+            onRefresh: () async {
+              refresh();
             },
+            child: ListView.builder(
+              itemCount: list.sorteios.length,
+              itemBuilder: (context, index) {
+                return Dismissible(
+                  key: UniqueKey(),
+                  background: Container(color: Colors.red),
+                  child: ListTile(
+                    onTap: (){
+                      logger.i(" #ONTAP Clicou no item da lista");
+                    },
+                    onLongPress: () => {
+                      logger.i(" #ONLONGPRESS Clicou no item da lista"),
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => SorteioAddScreen(
+                            taskContext: context,
+                            sorteio: list.sorteios[index],
+                          ),
+                        ),
+                      ).then((value) => setState(() {
+                            print('Recarregando a tela inicial');
+                          }))
+                    },
+                    
+                    leading: Icon(Icons.person_2),
+                    title: Text(list.sorteios[index].nome + ' ('+ list.sorteios[index].local + ')'),
+                  ),
+                  onDismissed: (direction) {
+                 
+                    print("clicou no dimissed");
+                    print(list.sorteios[index]);
+                    remove(list.sorteios[index]);
+                  },
+                );
+              },
+            ),
           );
         },
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: (){
           print("Clicou no Floating button de add sorteio");
-          buttonFloatingClicked();           
+          buttonFloatingClicked();  
+          refresh();         
         },
         tooltip: 'Increment',
         child: const Icon(Icons.add),
@@ -103,7 +110,7 @@ FirebaseFirestore firestore = FirebaseFirestore.instance;
   }
 
   // atualizar
-  refresh() async {    
+  void refresh() async {    
     logger.i( "Atualizando a lista de sorteios");
    await _sorteioService.buscaTodos().then((sorteios) {
     Provider.of<Sorteios>(context, listen: false).setSorteios(sorteios);
@@ -133,6 +140,7 @@ FirebaseFirestore firestore = FirebaseFirestore.instance;
             ),
           ).then((value) => setState(() {
                 print('Recarregando a tela inicial');
+                refresh();
           }));
   }
 
