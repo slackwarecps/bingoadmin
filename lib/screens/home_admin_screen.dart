@@ -1,14 +1,32 @@
+import 'dart:io';
+
+import 'package:bingoadmin/models/sorteio.dart';
+import 'package:bingoadmin/screens/commons/confirmation_dialog.dart';
+import 'package:bingoadmin/screens/commons/mostra_erros.dart';
 import 'package:bingoadmin/screens/componentes/box_card.dart';
 import 'package:bingoadmin/screens/componentes/drawer_admin.dart';
+import 'package:bingoadmin/services/sorteio_service.dart';
 
 import 'package:flutter/material.dart';
 
-class HomeAdminScreen extends StatelessWidget {
+class HomeAdminScreen extends StatefulWidget {
 
   const HomeAdminScreen({super.key});
 
+  
+
+  @override
+  State<HomeAdminScreen> createState() => _HomeAdminScreenState();
+}
+
+class _HomeAdminScreenState extends State<HomeAdminScreen> {
+SorteioService _sorteioService = SorteioService();
+
   @override
   Widget build(BuildContext context) {
+
+      
+      
     return Scaffold(
       drawer: DrawerAdmin(context),
       appBar: AppBar(
@@ -37,17 +55,67 @@ class HomeAdminScreen extends StatelessWidget {
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: (){
-          ScaffoldMessenger.of(context).showSnackBar(
-            const SnackBar(
-              content: Text('Adicionar Vendedor!!'),
-              duration: Duration(seconds: 2),
-            ),
-          );
+
+
+         print("clicou no botao da home");
+
+        // mostraErrosTela(context, conteudo: "teste de conteudo");
+        buttonAtualizaSorteioClick();
+
         },
         tooltip: 'Increment',
         child: const Icon(Icons.add),
       ), 
     );
+  }
+
+ void buttonAtualizaSorteioClick() {
+  print(">>>>> clicou no botao da home INICIO");
+
+    // final snackBar = SnackBar(
+    //     content: Row(
+    //       children: [
+    //         CircularProgressIndicator(),
+    //         SizedBox(
+    //           width: 10,
+    //         ),
+    //         Text('Atualizando...'),
+    //       ],
+        
+        
+    //   ));
+
+    //   ScaffoldMessenger.of(context).showSnackBar(snackBar);
+ 
+    _sorteioService.updateSorteio("669e5a1fd2f43b485726fb9e", Sorteio.empty()).then((sucesso){
+      print("Sucesso total!!! ");
+      print(sucesso);
+      final snackBar = SnackBar(
+        content: Text('Sucesso!'),
+        backgroundColor: Colors.blue,
+      );
+
+      ScaffoldMessenger.of(context).showSnackBar(snackBar);
+
+      print(">>>>> clicou no botao da home FIM 1");
+    })
+    .catchError((e){
+      print("OPS!  PEGOU O ERRO !!!");
+      print(e.message);
+      print("-----------------");
+
+     mostraErrosTela(context, conteudo: e.message);
+
+
+
+      print(">>>>> clicou no botao da home FIM 2");
+    }
+    );
+
+
+
+
+ 
   }
 }
 

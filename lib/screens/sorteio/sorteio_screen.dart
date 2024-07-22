@@ -133,7 +133,7 @@ FirebaseFirestore firestore = FirebaseFirestore.instance;
             ),
           ).then((value) => setState(() {
                 print('Recarregando a tela inicial');
-              }));
+          }));
   }
 
 

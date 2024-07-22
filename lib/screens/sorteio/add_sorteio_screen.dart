@@ -1,4 +1,5 @@
 import 'package:bingoadmin/models/sorteio.dart';
+import 'package:bingoadmin/screens/commons/mostra_erros.dart';
 import 'package:bingoadmin/services/sorteio_service.dart';
 import 'package:flutter/material.dart';
 import 'package:logger/logger.dart';
@@ -180,17 +181,20 @@ void buttonSalvarSorteioClicked(){
             )).then((value){
               if (value){
                 Navigator.pop(context, DisposeStatus.success);
+                          ScaffoldMessenger.of(context).showSnackBar(
+                    const SnackBar(
+                      content: Text('Criando um novo Sorteio'),
+                      backgroundColor: Colors.blue,
+                    ),
+                  );
               }else{
+                
                 Navigator.pop(context, DisposeStatus.error);
+                mostraErrosTela(context, conteudo: "Erro ao adicionar o sorteio");
               }
             });
 
-                ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(
-          content: Text('Criando um novo Sorteio'),
-          backgroundColor: Colors.blue,
-        ),
-      );
+      
       }
 
       Navigator.pop(context);

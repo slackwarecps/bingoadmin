@@ -26,21 +26,33 @@ final Logger logger = Logger();
     return Uri.parse(getURL());
   }
 
-  //TODO: Substituir getURL por getURI
-  Future<bool> adicionarSorteio(Sorteio sorteio) async {
-    String jsonJournal = json.encode(sorteio.toMap());
-
-    http.Response response = await client.post(Uri.parse(getURL()),
-        headers: {'Content-type': 'application/json'}, body: jsonJournal);
-    if (response.statusCode == 201) {
-      return true;
-    }
-    return false;
-  }
-
   void get() async {
     http.Response response = await client.get(Uri.parse(getURL()));
   }
+
+
+
+  // 01 ADICIONA UM SORTEIO
+  Future<bool> adicionarSorteio(Sorteio sorteio) async {
+    String jsonSorteio = json.encode(sorteio.toMap());
+
+   // jsonSorteio = '{"nomex": null, "localx": null}';
+
+
+    http.Response response = await client.post(Uri.parse(getURL()),
+        headers: {'Content-type': 'application/json'}, body: jsonSorteio);
+    if (response.statusCode != 201) {
+      return false;
+    }
+    return true;
+  }
+
+
+
+
+
+
+ 
 
  
   Future<List<Sorteio>> buscaTodos() async {
@@ -72,24 +84,31 @@ final Logger logger = Logger();
         return result;
   }
 
-  Future<bool> updateSorteio(String id, Sorteio sorteio) async {
-    String token = await getToken();
-    String jsonSorteio = json.encode(sorteio.toMap());
-    http.Response response = await client.put(
-      Uri.parse("${getURL()}/$id"),
-      headers: {
-        'Content-type': 'application/json',
-        'Authorization': 'Bearer $token',
-      },
-      body: jsonSorteio,
-    );
 
-    if (response.statusCode == 200) {
-      return true;
-    } else {
-      verifyException(json.decode(response.body));
-      return false;
-    }
+
+  Future<bool> updateSorteio(String id, Sorteio sorteio) async {
+          String token = await getToken();
+          String jsonSorteio = json.encode(sorteio.toMap());
+
+         // await Future.delayed(Duration(seconds: 30));
+
+          //quebra o json              
+          //jsonSorteio = '{"nomex": "asd", "localx": "sabao"}';
+
+              http.Response response = await client.put(
+                Uri.parse("${getURL()}/$id"),
+                headers: {
+                  'Content-type': 'application/json',
+                  'Authorization': 'Bearer $token',
+                },
+                body: jsonSorteio,
+              );
+
+        if (response.statusCode != 200) {
+          throw HttpException("Code: ${response.statusCode} \nMessage: ${response.body}");
+
+        } 
+        return true;
   }
 
   Future<Sorteio?> getSorteioById(String id) async {
@@ -151,3 +170,5 @@ final Logger logger = Logger();
 }
 
 class TokenExpiredException implements Exception {}
+
+class DeuRuimNaAPIException implements Exception {}
