@@ -1,18 +1,31 @@
 import 'package:bingoadmin/models/sorteio.dart';
 import 'package:bingoadmin/services/sorteio_service.dart';
 import 'package:flutter/material.dart';
+import 'package:logger/logger.dart';
+import 'package:logger/web.dart';
 
 
 class SorteioAddScreen extends StatefulWidget {
-  const SorteioAddScreen({Key? key, required this.taskContext}) : super(key: key);
+  
+  const SorteioAddScreen({Key? key, required this.taskContext, required this.sorteio}) : super(key: key);
 
   final BuildContext taskContext;
+
+  //Solicitando o sorteio na construcao do widget
+  final Sorteio sorteio;
+
 
   @override
   State<SorteioAddScreen> createState() => _SorteioAddScreenState();
 }
 
 class _SorteioAddScreenState extends State<SorteioAddScreen> {
+
+  Logger logger = Logger();
+
+  bool _isEditando = false;
+
+ 
   TextEditingController localController = TextEditingController();
   TextEditingController nomeController = TextEditingController();
 
@@ -39,11 +52,28 @@ class _SorteioAddScreenState extends State<SorteioAddScreen> {
 
   @override
   Widget build(BuildContext context) {
+ logger.i("EVENTO: CRIOU A TELA DE ADD SORTEIO");
+
+ logger.i(this.widget.sorteio);
+
+  if (this.widget.sorteio.nome==""){
+    logger.i("Adicionando um novo sorteio");
+    nomeController.text = "";
+    localController.text = "";
+    _isEditando = false;
+  }else{ 
+    logger.i("Editando um sorteio");
+    nomeController.text = this.widget.sorteio.nome;
+    localController.text = this.widget.sorteio.local;
+    _isEditando = true;
+  }
+
+
     return Form(
       key: _formKey,
       child: Scaffold(
         appBar: AppBar(
-          title: const Text('Novo Sorteio'),
+          title: _isEditando ? const Text('Atualizar Sorteio'): const Text('Novo Sorteio') ,
         ),
         body: Center(
           child: SingleChildScrollView(
@@ -108,14 +138,40 @@ class _SorteioAddScreenState extends State<SorteioAddScreen> {
                         print(localController.text);
                         
 
-                   
-                        _sorteioService.adicionarSorteio(Sorteio(
-                          id: "",
-                          nome: nomeController.text,
-                          local: localController.text,
-                          createdAt: DateTime.now(),
-                          updatedAt: DateTime.now(),
-                        ));
+                        if (_isEditando==true){
+                            _sorteioService.updateSorteio(widget.sorteio.id, Sorteio(
+                               id: widget.sorteio.id,
+                               nome: nomeController.text,
+                               local: localController.text,
+                               createdAt: widget.sorteio.createdAt,
+                               updatedAt: DateTime.now(),
+                             ));
+
+                                  ScaffoldMessenger.of(context).showSnackBar(
+                          const SnackBar(
+                            content: Text('Atualizando o sorteio'),
+                            backgroundColor: Colors.green,
+                          ),
+                        );
+
+                       
+                        }else{                             
+                                _sorteioService.adicionarSorteio(Sorteio(
+                               id: "",
+                               nome: nomeController.text,
+                               local: localController.text,
+                               createdAt: DateTime.now(),
+                               updatedAt: DateTime.now(),
+                             ));
+
+                                  ScaffoldMessenger.of(context).showSnackBar(
+                          const SnackBar(
+                            content: Text('Criando um novo Sorteio'),
+                            backgroundColor: Colors.blue,
+                          ),
+                        );
+                        }
+                 
 
 
                         ScaffoldMessenger.of(context).showSnackBar(
@@ -126,7 +182,7 @@ class _SorteioAddScreenState extends State<SorteioAddScreen> {
                         Navigator.pop(context);
                       }
                     },
-                    child: Text('Adicionar Sorteio'),
+                    child: _isEditando?Text('Atualizar o Sorteio'):Text('Adicionar Sorteio'),
                   ),
                 ],
               ),

@@ -28,7 +28,7 @@ Sorteio.empty()
 Sorteio.fromMap(Map<String, dynamic> map)
     : id = map['id'],
     nome = map['nome'] ?? "",
-    local = map['nome'] ?? "",
+    local = map['local'] ?? "",
     createdAt = map['createdAt']==null? DateTime.now() : DateTime.parse(map['createdAt']),
     updatedAt = map['updatedAt']==null? DateTime.now() : DateTime.parse(map['updatedAt'])
     ; 
@@ -37,7 +37,7 @@ Map<String, dynamic> toMap() {
   return {
     'id': id,
     'nome': nome,
-    'local': nome,
+    'local': local,
     'createdAt': createdAt.toString(),
     'updatedAt': updatedAt.toString(),  
   };

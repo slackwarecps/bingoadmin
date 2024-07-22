@@ -39,6 +39,14 @@ FirebaseFirestore firestore = FirebaseFirestore.instance;
 
       appBar: AppBar(
         title: Text('Sorteio'),
+        actions: [
+          IconButton(
+            onPressed: () {
+              refresh();
+            },
+            icon: const Icon(Icons.refresh),
+          ),
+        ],
       ),
       body: Consumer<Sorteios>(
         builder: (BuildContext context, Sorteios list, Widget? widget) {
@@ -49,8 +57,25 @@ FirebaseFirestore firestore = FirebaseFirestore.instance;
                 key: UniqueKey(),
                 background: Container(color: Colors.red),
                 child: ListTile(
+                  onTap: (){
+                    logger.i(" #ONTAP Clicou no item da lista");
+                  },
+                  onLongPress: () => {
+                    logger.i(" #ONLONGPRESS Clicou no item da lista"),
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => SorteioAddScreen(
+                          taskContext: context,
+                          sorteio: list.sorteios[index],
+                        ),
+                      ),
+                    ).then((value) => setState(() {
+                          print('Recarregando a tela inicial');
+                        }))
+                  },
                   leading: Icon(Icons.person_2),
-                  title: Text(list.sorteios[index].nome + ' ('+ list.sorteios[index].id + ')'),
+                  title: Text(list.sorteios[index].nome + ' ('+ list.sorteios[index].local + ')'),
                 ),
                 onDismissed: (direction) {
                
@@ -66,8 +91,7 @@ FirebaseFirestore firestore = FirebaseFirestore.instance;
       floatingActionButton: FloatingActionButton(
         onPressed: (){
           print("Clicou no Floating button de add sorteio");
-          buttonFloatingClicked();
-           
+          buttonFloatingClicked();           
         },
         tooltip: 'Increment',
         child: const Icon(Icons.add),
@@ -76,7 +100,7 @@ FirebaseFirestore firestore = FirebaseFirestore.instance;
     );
   }
 
-  //atualizar
+  // atualizar
   refresh() async {    
     logger.i( "Atualizando a lista de sorteios");
    await _sorteioService.buscaTodos().then((sorteios) {
@@ -86,7 +110,7 @@ FirebaseFirestore firestore = FirebaseFirestore.instance;
   }
 
 
-//remover
+// remover
  void remove(Sorteio sorteio) {
    logger.i(sorteio.id);
    _sorteioService.removerSorteioPorId(sorteio.id).then((retorno){
@@ -96,11 +120,13 @@ FirebaseFirestore firestore = FirebaseFirestore.instance;
   }
 
   buttonFloatingClicked() {
+          Sorteio novoSorteio = Sorteio.empty();
           Navigator.push(
             context,
             MaterialPageRoute(
               builder: (contextNew) => SorteioAddScreen(
                 taskContext: context,
+                sorteio: novoSorteio,
               ),
             ),
           ).then((value) => setState(() {
@@ -109,7 +135,7 @@ FirebaseFirestore firestore = FirebaseFirestore.instance;
   }
 
 
-//Mostra Formulario
+// Mostra DIALOG //NAO USAR!!!
   showFormModal({Sorteio? model}) {
     // Labels à serem mostradas no Modal
     String labelTitle = "Adicionar Sorteio";

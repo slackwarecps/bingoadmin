@@ -10,7 +10,7 @@ import 'package:bingoadmin/screens/diversos_screen.dart';
 import 'package:bingoadmin/screens/home_admin_screen.dart';
 import 'package:bingoadmin/screens/jogador/add_jogador_screen.dart';
 import 'package:bingoadmin/screens/jogador/jogador_screen.dart';
-import 'package:bingoadmin/screens/sorteio/sorteio_manual_screen.dart';
+import 'package:bingoadmin/screens/sorteio_manual_screen.dart';
 import 'package:bingoadmin/screens/sorteio/sorteio_screen.dart';
 import 'package:bingoadmin/screens/teste/teste_screen.dart';
 import 'package:bingoadmin/screens/vendedor/add_vendedor_screen.dart';

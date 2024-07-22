@@ -68,7 +68,7 @@ final Logger logger = Logger();
           logger.i(jsonMap);
            if ( jsonMap['updatedAt']==null) {
             print (DateTime.now());
-              print("NULLO");
+            print("NULLO");
            }
         
           //adiciona na lista 
