@@ -52,20 +52,24 @@ class salvarSorteio extends State<AddSorteioScreen> {
     );
   }
 
-  salvarSorteio(BuildContext context) async {
+  salvarSorteio(BuildContext context)  {
     SorteioService sorteioService = SorteioService();
     widget.sorteio.nome = nomeController.text;
 
     if (widget.isEditing) {
-      sorteioService.edit(widget.sorteio.id, widget.sorteio).then((value) {
-        if (value) {
-          Navigator.pop(context, DisposeStatus.success);
-        } else {
-          Navigator.pop(context, DisposeStatus.error);
-        }
-      });
+      print("Esta em modo de Alteracao");
+
+      // sorteioService.(widget.sorteio.id, widget.sorteio).then((value) {
+      //   if (value) {
+      //     Navigator.pop(context, DisposeStatus.success);
+      //   } else {
+      //     Navigator.pop(context, DisposeStatus.error);
+      //   }
+
+      // });
+
     } else {
-      sorteioService.register(widget.sorteio).then((value) {
+     sorteioService.adicionarSorteio(widget.sorteio).then((value) {
         if (value) {
           Navigator.pop(context, DisposeStatus.success);
         } else {

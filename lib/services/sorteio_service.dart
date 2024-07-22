@@ -26,10 +26,8 @@ final Logger logger = Logger();
     return Uri.parse(getURL());
   }
 
-
-
   //TODO: Substituir getURL por getURI
-  Future<bool> register(Sorteio sorteio) async {
+  Future<bool> adicionarSorteio(Sorteio sorteio) async {
     String jsonJournal = json.encode(sorteio.toMap());
 
     http.Response response = await client.post(Uri.parse(getURL()),
@@ -45,9 +43,7 @@ final Logger logger = Logger();
   }
 
  
-
-
-  Future<List<Sorteio>> getSorteios() async {
+  Future<List<Sorteio>> buscaTodos() async {
         String token = await getToken();
         http.Response response = await client.get(
           Uri.parse("${WebClient.url}$resource"),
@@ -84,9 +80,48 @@ final Logger logger = Logger();
         return result;
   }
 
+  Future<bool> updateSorteio(String id, Sorteio sorteio) async {
+    String token = await getToken();
+    String jsonSorteio = json.encode(sorteio.toMap());
+    http.Response response = await client.put(
+      Uri.parse("${getURL()}/$id"),
+      headers: {
+        'Content-type': 'application/json',
+        'Authorization': 'Bearer $token',
+      },
+      body: jsonSorteio,
+    );
+
+    if (response.statusCode == 200) {
+      return true;
+    } else {
+      verifyException(json.decode(response.body));
+      return false;
+    }
+  }
+
+  Future<Sorteio?> getSorteioById(String id) async {
+    String token = await getToken();
+    http.Response response = await client.get(
+      Uri.parse("${getURL()}/$id"),
+      headers: {
+        'Content-type': 'application/json',
+        'Authorization': 'Bearer $token',
+      },
+    );
+
+    if (response.statusCode == 200) {
+      Map<String, dynamic> jsonMap = json.decode(response.body);
+      return Sorteio.fromMap(jsonMap);
+    } else {
+      verifyException(json.decode(response.body));
+      return null;
+    }
+  }
 
 
-  Future<bool> remove(String id) async {
+
+  Future<bool> removerSorteioPorId(String id) async {
     String token = await getToken();
     logger.i("removendo ${getURL()}/$id ");
     http.Response response = await client.delete(

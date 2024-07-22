@@ -1,0 +1,1276 @@
+{
+    "openapi": "3.0.1",
+    "info": {
+        "title": "OpenAPI definition",
+        "version": "v0"
+    },
+    "servers": [
+        {
+            "url": "http://localhost:8080",
+            "description": "Generated server url"
+        }
+    ],
+    "paths": {
+        "/sorteio-core/v1/vendedor/{id}": {
+            "get": {
+                "tags": [
+                    "vendedor-controller"
+                ],
+                "operationId": "getVendedorById",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "*/*": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Vendedor"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "vendedor-controller"
+                ],
+                "operationId": "updateVendedor",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/Vendedor"
+                            }
+                        }
+                    },
+                    "required": true
+                },
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "*/*": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Vendedor"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "vendedor-controller"
+                ],
+                "operationId": "deleteVendedor",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    }
+                }
+            }
+        },
+        "/sorteio-core/v1/sorteio/{id}": {
+            "get": {
+                "tags": [
+                    "sorteio-controller"
+                ],
+                "operationId": "getSorteioById",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "*/*": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Sorteio"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "sorteio-controller"
+                ],
+                "operationId": "atualizaSorteio",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/SorteioDTO"
+                            }
+                        }
+                    },
+                    "required": true
+                },
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "*/*": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Sorteio"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "sorteio-controller"
+                ],
+                "operationId": "deleteSorteio",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    }
+                }
+            }
+        },
+        "/sorteio-core/v1/notificacao/{id}": {
+            "put": {
+                "tags": [
+                    "notificacao-controller"
+                ],
+                "operationId": "updateNotificacao",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/Notificacao"
+                            }
+                        }
+                    },
+                    "required": true
+                },
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "*/*": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Notificacao"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/sorteio-core/v1/jogador/{id}": {
+            "get": {
+                "tags": [
+                    "jogador-controller"
+                ],
+                "operationId": "getJogadorById",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "*/*": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Jogador"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "jogador-controller"
+                ],
+                "operationId": "updateJogador",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/Jogador"
+                            }
+                        }
+                    },
+                    "required": true
+                },
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "*/*": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Jogador"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "jogador-controller"
+                ],
+                "operationId": "deleteJogador",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    }
+                }
+            }
+        },
+        "/sorteio-core/v1/vendedor": {
+            "get": {
+                "tags": [
+                    "vendedor-controller"
+                ],
+                "operationId": "getAllVendedores",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "*/*": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/Vendedor"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "vendedor-controller"
+                ],
+                "operationId": "createVendedor",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/Vendedor"
+                            }
+                        }
+                    },
+                    "required": true
+                },
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "*/*": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Vendedor"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/sorteio-core/v1/sorteio": {
+            "get": {
+                "tags": [
+                    "sorteio-controller"
+                ],
+                "operationId": "getAllSorteios",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "*/*": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/SorteioMinimoDTO"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "sorteio-controller"
+                ],
+                "operationId": "criaSorteio",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/SorteioDTO"
+                            }
+                        }
+                    },
+                    "required": true
+                },
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/SorteioResponseDTO"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/sorteio-core/v1/sorteio/sorteia-bola": {
+            "post": {
+                "tags": [
+                    "sorteio-controller"
+                ],
+                "operationId": "adicionarSorteiox",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/SorteiaBolaDTO"
+                            }
+                        }
+                    },
+                    "required": true
+                },
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/SorteiaBolaDTO"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/sorteio-core/v1/sorteio/notifica-ganhadores": {
+            "post": {
+                "tags": [
+                    "sorteio-controller"
+                ],
+                "operationId": "NotificaGanhadores",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/SorteiaBolaDTO"
+                            }
+                        }
+                    },
+                    "required": true
+                },
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/SorteioNotificadosDTO"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/sorteio-core/v1/notificacao": {
+            "post": {
+                "tags": [
+                    "notificacao-controller"
+                ],
+                "operationId": "createNotificacao",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/Notificacao"
+                            }
+                        }
+                    },
+                    "required": true
+                },
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "*/*": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Notificacao"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/sorteio-core/v1/jogador": {
+            "get": {
+                "tags": [
+                    "jogador-controller"
+                ],
+                "operationId": "getAllJogadores",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "*/*": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/Jogador"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "jogador-controller"
+                ],
+                "operationId": "createJogador",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/Jogador"
+                            }
+                        }
+                    },
+                    "required": true
+                },
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "*/*": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Jogador"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/sorteio-core/v1/cartela": {
+            "post": {
+                "tags": [
+                    "cartela-controller"
+                ],
+                "operationId": "adicionarCartela",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/CartelaDTO"
+                            }
+                        }
+                    },
+                    "required": true
+                },
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/CartelaResponseDTO"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/sorteio-core/v1/cartela/teste": {
+            "post": {
+                "tags": [
+                    "cartela-controller"
+                ],
+                "operationId": "adicionarCartela2",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/Cartela"
+                            }
+                        }
+                    },
+                    "required": true
+                },
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "*/*": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Cartela"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/sorteio-core/v1/cartela/premiar": {
+            "post": {
+                "tags": [
+                    "cartela-controller"
+                ],
+                "operationId": "premiarCartela",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/Cartela"
+                            }
+                        }
+                    },
+                    "required": true
+                },
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "*/*": {
+                                "schema": {
+                                    "type": "string"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/sorteio-core/v1/cartela/criar": {
+            "post": {
+                "tags": [
+                    "cartela-controller"
+                ],
+                "operationId": "criarTeste",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/Cartela"
+                            }
+                        }
+                    },
+                    "required": true
+                },
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "*/*": {
+                                "schema": {
+                                    "type": "string"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/sorteio-core/v1/teste/linha": {
+            "get": {
+                "tags": [
+                    "teste-controller"
+                ],
+                "operationId": "getMethodName",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "string"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/sorteio-core/v1/notificacao/{jogadorId}": {
+            "get": {
+                "tags": [
+                    "notificacao-controller"
+                ],
+                "operationId": "getNotificacoesByJogadorId",
+                "parameters": [
+                    {
+                        "name": "jogadorId",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "*/*": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/Notificacao"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/sorteio-core/v1/health": {
+            "get": {
+                "tags": [
+                    "health-controller"
+                ],
+                "operationId": "healthPadrao",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "*/*": {
+                                "schema": {
+                                    "type": "string"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/sorteio-core/v1/cartela/{id}": {
+            "get": {
+                "tags": [
+                    "cartela-controller"
+                ],
+                "operationId": "buscarCartelaPorId",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "*/*": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Cartela"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "components": {
+        "schemas": {
+            "Vendedor": {
+                "type": "object",
+                "properties": {
+                    "id": {
+                        "type": "string"
+                    },
+                    "nome": {
+                        "type": "string"
+                    },
+                    "saldoVendido": {
+                        "type": "number",
+                        "format": "double"
+                    },
+                    "createdAt": {
+                        "type": "string",
+                        "format": "date-time"
+                    }
+                }
+            },
+            "SorteioDTO": {
+                "type": "object",
+                "properties": {
+                    "id": {
+                        "type": "string"
+                    },
+                    "createAt": {
+                        "type": "string",
+                        "format": "date-time"
+                    },
+                    "local": {
+                        "type": "string"
+                    },
+                    "nome": {
+                        "type": "string"
+                    },
+                    "numeros_sorteados_qtd": {
+                        "type": "integer",
+                        "format": "int64"
+                    },
+                    "lista_numeros_sorteados": {
+                        "type": "array",
+                        "items": {
+                            "type": "integer",
+                            "format": "int32"
+                        }
+                    }
+                }
+            },
+            "Sorteio": {
+                "type": "object",
+                "properties": {
+                    "id": {
+                        "type": "string"
+                    },
+                    "createAt": {
+                        "type": "string",
+                        "format": "date-time"
+                    },
+                    "updatedAt": {
+                        "type": "string",
+                        "format": "date-time"
+                    },
+                    "local": {
+                        "type": "string"
+                    },
+                    "nome": {
+                        "type": "string"
+                    },
+                    "numeros_sorteados_qtd": {
+                        "type": "integer",
+                        "format": "int64"
+                    },
+                    "lista_numeros_sorteados": {
+                        "type": "array",
+                        "items": {
+                            "type": "integer",
+                            "format": "int32"
+                        }
+                    },
+                    "tipoSorteio": {
+                        "type": "string",
+                        "enum": [
+                            "FIXO",
+                            "AUTOMATICO"
+                        ]
+                    },
+                    "valor": {
+                        "type": "number",
+                        "format": "double"
+                    },
+                    "prenda": {
+                        "type": "string"
+                    },
+                    "cartelasQtd": {
+                        "type": "integer",
+                        "format": "int32"
+                    },
+                    "valorDoacaolote1": {
+                        "type": "number",
+                        "format": "double"
+                    },
+                    "valorDoacaolote": {
+                        "type": "number",
+                        "format": "double"
+                    },
+                    "valorDoacaolote3": {
+                        "type": "number",
+                        "format": "double"
+                    },
+                    "ganharamQuadra": {
+                        "type": "integer",
+                        "format": "int32"
+                    },
+                    "ganharamQuina": {
+                        "type": "integer",
+                        "format": "int32"
+                    },
+                    "ganharamFull": {
+                        "type": "integer",
+                        "format": "int32"
+                    },
+                    "valorArrecadado": {
+                        "type": "number",
+                        "format": "double"
+                    },
+                    "premioQuadra": {
+                        "type": "number",
+                        "format": "double"
+                    },
+                    "premioQuina": {
+                        "type": "number",
+                        "format": "double"
+                    },
+                    "premioCheia": {
+                        "type": "number",
+                        "format": "double"
+                    },
+                    "tiraTeimaId": {
+                        "type": "string"
+                    },
+                    "descricao": {
+                        "type": "string"
+                    },
+                    "status": {
+                        "type": "string"
+                    },
+                    "tiraTeima": {
+                        "type": "string",
+                        "enum": [
+                            "MANUAL",
+                            "AUTOMATICO"
+                        ]
+                    },
+                    "valorPagoPremios": {
+                        "type": "number",
+                        "format": "double"
+                    }
+                }
+            },
+            "Notificacao": {
+                "required": [
+                    "createdAt",
+                    "jogadorId",
+                    "mensagem"
+                ],
+                "type": "object",
+                "properties": {
+                    "id": {
+                        "type": "string"
+                    },
+                    "createdAt": {
+                        "type": "string",
+                        "format": "date-time"
+                    },
+                    "mensagem": {
+                        "type": "string"
+                    },
+                    "jogadorId": {
+                        "type": "string"
+                    },
+                    "visualizado": {
+                        "type": "boolean"
+                    }
+                }
+            },
+            "Jogador": {
+                "type": "object",
+                "properties": {
+                    "id": {
+                        "type": "string"
+                    },
+                    "nome": {
+                        "type": "string"
+                    },
+                    "saldo": {
+                        "type": "number",
+                        "format": "double"
+                    },
+                    "createdAt": {
+                        "type": "string",
+                        "format": "date-time"
+                    }
+                }
+            },
+            "SorteioResponseDTO": {
+                "type": "object",
+                "properties": {
+                    "id": {
+                        "type": "string"
+                    },
+                    "createAt": {
+                        "type": "string",
+                        "format": "date-time"
+                    },
+                    "local": {
+                        "type": "string"
+                    }
+                }
+            },
+            "SorteiaBolaDTO": {
+                "type": "object",
+                "properties": {
+                    "sorteioId": {
+                        "type": "string"
+                    }
+                }
+            },
+            "CartelaNotificadosDTO": {
+                "type": "object",
+                "properties": {
+                    "cartelaId": {
+                        "type": "string"
+                    },
+                    "local": {
+                        "type": "string"
+                    },
+                    "valorCartela": {
+                        "type": "number",
+                        "format": "double"
+                    },
+                    "linha1": {
+                        "type": "array",
+                        "items": {
+                            "type": "integer",
+                            "format": "int32"
+                        }
+                    },
+                    "linha2": {
+                        "type": "array",
+                        "items": {
+                            "type": "integer",
+                            "format": "int32"
+                        }
+                    },
+                    "linha3": {
+                        "type": "array",
+                        "items": {
+                            "type": "integer",
+                            "format": "int32"
+                        }
+                    },
+                    "jogadorId": {
+                        "type": "string"
+                    },
+                    "jogadorNome": {
+                        "type": "string"
+                    }
+                }
+            },
+            "SorteioNotificadosDTO": {
+                "type": "object",
+                "properties": {
+                    "id": {
+                        "type": "string"
+                    },
+                    "local": {
+                        "type": "string"
+                    },
+                    "createAt": {
+                        "type": "string",
+                        "format": "date-time"
+                    },
+                    "numeros_sorteados_qtd": {
+                        "type": "integer",
+                        "format": "int64"
+                    },
+                    "cartelasQtd": {
+                        "type": "integer",
+                        "format": "int32"
+                    },
+                    "ganharamQuadra": {
+                        "type": "integer",
+                        "format": "int32"
+                    },
+                    "ganharamQuina": {
+                        "type": "integer",
+                        "format": "int32"
+                    },
+                    "ganharamFull": {
+                        "type": "integer",
+                        "format": "int32"
+                    },
+                    "status": {
+                        "type": "string"
+                    },
+                    "listaDeCartelas": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/CartelaNotificadosDTO"
+                        }
+                    }
+                }
+            },
+            "CartelaDTO": {
+                "required": [
+                    "sorteioId",
+                    "vendedorId"
+                ],
+                "type": "object",
+                "properties": {
+                    "jogadorId": {
+                        "type": "string"
+                    },
+                    "sorteioId": {
+                        "type": "string"
+                    },
+                    "vendedorId": {
+                        "type": "string"
+                    },
+                    "valor": {
+                        "type": "number",
+                        "format": "double"
+                    }
+                }
+            },
+            "CartelaResponseDTO": {
+                "type": "object",
+                "properties": {
+                    "id": {
+                        "type": "string"
+                    },
+                    "createdAt": {
+                        "type": "string",
+                        "format": "date-time"
+                    },
+                    "jogadorId": {
+                        "type": "string"
+                    },
+                    "sorteioId": {
+                        "type": "string"
+                    },
+                    "vendedorId": {
+                        "type": "string"
+                    },
+                    "linha01": {
+                        "type": "array",
+                        "items": {
+                            "type": "integer",
+                            "format": "int32"
+                        }
+                    },
+                    "linha02": {
+                        "type": "array",
+                        "items": {
+                            "type": "integer",
+                            "format": "int32"
+                        }
+                    },
+                    "linha03": {
+                        "type": "array",
+                        "items": {
+                            "type": "integer",
+                            "format": "int32"
+                        }
+                    },
+                    "valor": {
+                        "type": "number",
+                        "format": "double"
+                    }
+                }
+            },
+            "Cartela": {
+                "required": [
+                    "jogadorId",
+                    "sorteioId",
+                    "vendedorId"
+                ],
+                "type": "object",
+                "properties": {
+                    "id": {
+                        "type": "string"
+                    },
+                    "createdAt": {
+                        "type": "string",
+                        "format": "date-time"
+                    },
+                    "jogadorId": {
+                        "type": "string"
+                    },
+                    "linha01": {
+                        "type": "array",
+                        "items": {
+                            "type": "integer",
+                            "format": "int32"
+                        }
+                    },
+                    "linha02": {
+                        "type": "array",
+                        "items": {
+                            "type": "integer",
+                            "format": "int32"
+                        }
+                    },
+                    "linha03": {
+                        "type": "array",
+                        "items": {
+                            "type": "integer",
+                            "format": "int32"
+                        }
+                    },
+                    "sorteioId": {
+                        "type": "string"
+                    },
+                    "vendedorId": {
+                        "type": "string"
+                    },
+                    "valor": {
+                        "type": "number",
+                        "format": "double"
+                    },
+                    "ganhouQuadra": {
+                        "type": "boolean"
+                    },
+                    "ganhouQuina": {
+                        "type": "boolean"
+                    },
+                    "ganhouCheia": {
+                        "type": "boolean"
+                    },
+                    "tiraTeimaId": {
+                        "type": "string"
+                    },
+                    "status": {
+                        "type": "string"
+                    },
+                    "premioQuadra": {
+                        "type": "number",
+                        "format": "double"
+                    },
+                    "premioQuina": {
+                        "type": "number",
+                        "format": "double"
+                    },
+                    "premioCheio": {
+                        "type": "number",
+                        "format": "double"
+                    }
+                }
+            },
+            "SorteioMinimoDTO": {
+                "type": "object",
+                "properties": {
+                    "id": {
+                        "type": "string"
+                    },
+                    "local": {
+                        "type": "string"
+                    },
+                    "nome": {
+                        "type": "string"
+                    },
+                    "createAt": {
+                        "type": "string",
+                        "format": "date-time"
+                    },
+                    "updatedAt": {
+                        "type": "string",
+                        "format": "date-time"
+                    },
+                    "status": {
+                        "type": "string"
+                    }
+                }
+            }
+        }
+    }
+}

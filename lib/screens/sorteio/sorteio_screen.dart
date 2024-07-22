@@ -1,5 +1,6 @@
 import 'package:bingoadmin/models/sorteio.dart';
 import 'package:bingoadmin/models/sorteios.dart';
+import 'package:bingoadmin/screens/sorteio/add_sorteio_screen.dart';
 import 'package:bingoadmin/services/sorteio_service.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
@@ -35,12 +36,7 @@ FirebaseFirestore firestore = FirebaseFirestore.instance;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-       floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          showFormModal();
-        },
-        child: const Icon(Icons.add),
-      ),
+
       appBar: AppBar(
         title: Text('Sorteio'),
       ),
@@ -57,21 +53,33 @@ FirebaseFirestore firestore = FirebaseFirestore.instance;
                   title: Text(list.sorteios[index].nome + ' ('+ list.sorteios[index].id + ')'),
                 ),
                 onDismissed: (direction) {
-                 print("clicou no botao");
+               
+                  print("clicou no dimissed");
+                  print(list.sorteios[index]);
+                  remove(list.sorteios[index]);
                 },
               );
             },
           );
         },
       ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: (){
+          print("Clicou no Floating button de add sorteio");
+          buttonFloatingClicked();
+           
+        },
+        tooltip: 'Increment',
+        child: const Icon(Icons.add),
+      ), 
+      
     );
   }
 
-//atualizar
+  //atualizar
   refresh() async {    
     logger.i( "Atualizando a lista de sorteios");
-
-   await _sorteioService.getSorteios().then((sorteios) {
+   await _sorteioService.buscaTodos().then((sorteios) {
     Provider.of<Sorteios>(context, listen: false).setSorteios(sorteios);
    
   });
@@ -79,16 +87,25 @@ FirebaseFirestore firestore = FirebaseFirestore.instance;
 
 
 //remover
- void remove(Sorteio model) {
-
-   logger.i(model.id);
-   _sorteioService.remove(model.id).then((retorno){
+ void remove(Sorteio sorteio) {
+   logger.i(sorteio.id);
+   _sorteioService.removerSorteioPorId(sorteio.id).then((retorno){
     logger.i(retorno);
-
    });
-
-
     refresh();
+  }
+
+  buttonFloatingClicked() {
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (contextNew) => SorteioAddScreen(
+                taskContext: context,
+              ),
+            ),
+          ).then((value) => setState(() {
+                print('Recarregando a tela inicial');
+              }));
   }
 
 
@@ -153,6 +170,7 @@ FirebaseFirestore firestore = FirebaseFirestore.instance;
                       Sorteio sorteio = Sorteio(
                         id: const Uuid().v1(),
                         nome: nameController.text,
+                        local: "Vazio por enquanto...",
                         createdAt: DateTime.now(),
                         updatedAt: DateTime.now(),
                       );
