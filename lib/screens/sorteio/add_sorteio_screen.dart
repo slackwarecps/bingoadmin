@@ -29,6 +29,7 @@ class _SorteioAddScreenState extends State<SorteioAddScreen> {
  
   TextEditingController localController = TextEditingController();
   TextEditingController nomeController = TextEditingController();
+  
 
 
   final _formKey = GlobalKey<FormState>();
@@ -53,19 +54,24 @@ class _SorteioAddScreenState extends State<SorteioAddScreen> {
 
   @override
   Widget build(BuildContext context) {
- logger.i("EVENTO: CRIOU A TELA DE ADD SORTEIO");
+ 
 
- logger.i(this.widget.sorteio);
+  logger.i("EVENTO: CRIOU A TELA DE ADD SORTEIO");
 
-  if (this.widget.sorteio.nome==""){
+  logger.i(widget.sorteio);
+
+  if (widget.sorteio.nome==""){
     logger.i("Adicionando um novo sorteio");
     nomeController.text = "";
     localController.text = "";
+
+     localController.text = "Campinas";
+  nomeController.text = "Laranjinha";
     _isEditando = false;
   }else{ 
     logger.i("Editando um sorteio");
-    nomeController.text = this.widget.sorteio.nome;
-    localController.text = this.widget.sorteio.local;
+    nomeController.text = widget.sorteio.nome;
+    localController.text = widget.sorteio.local;
     _isEditando = true;
   }
 
@@ -147,7 +153,7 @@ class _SorteioAddScreenState extends State<SorteioAddScreen> {
     );
   }
 
-void buttonSalvarSorteioClicked(){
+void buttonSalvarSorteioClicked() async{
   logger.i("EVENTO: BOTAO SALVAR SORTEIO CLICADO");
 
    if (_formKey.currentState!.validate()) {
@@ -172,7 +178,7 @@ void buttonSalvarSorteioClicked(){
       );
       
       }else{                             
-        _sorteioService.adicionarSorteio(Sorteio(
+        await _sorteioService.adicionarSorteio(Sorteio(
               id: "",
               nome: nomeController.text,
               local: localController.text,
@@ -180,24 +186,17 @@ void buttonSalvarSorteioClicked(){
               updatedAt: DateTime.now(),
             )).then((value){
               if (value){
-                Navigator.pop(context, DisposeStatus.success);
-                          ScaffoldMessenger.of(context).showSnackBar(
-                    const SnackBar(
-                      content: Text('Criando um novo Sorteio'),
-                      backgroundColor: Colors.blue,
-                    ),
-                  );
-              }else{
-                
-                Navigator.pop(context, DisposeStatus.error);
-                mostraErrosTela(context, conteudo: "Erro ao adicionar o sorteio");
+                print("terminou de salvar na API ");
+                print(value);
               }
+              Navigator.pop(context, DisposeStatus.success);
+            }).catchError((erro){
+              Navigator.pop(context, DisposeStatus.error);
             });
 
       
       }
 
-      Navigator.pop(context);
     }
 
 }

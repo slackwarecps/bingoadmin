@@ -1,5 +1,6 @@
 import 'package:bingoadmin/models/sorteio.dart';
 import 'package:bingoadmin/models/sorteios.dart';
+import 'package:bingoadmin/screens/commons/mostra_erros.dart';
 import 'package:bingoadmin/screens/sorteio/add_sorteio_screen.dart';
 import 'package:bingoadmin/services/sorteio_service.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -111,38 +112,63 @@ FirebaseFirestore firestore = FirebaseFirestore.instance;
 
   // atualizar
   void refresh() async {    
-    logger.i( "Atualizando a lista de sorteios");
-   await _sorteioService.buscaTodos().then((sorteios) {
-    Provider.of<Sorteios>(context, listen: false).setSorteios(sorteios);
-   
-  });
+    
+    await _sorteioService.buscaTodos().then((sorteios) {
+      Provider.of<Sorteios>(context, listen: false).setSorteios(sorteios);  
+      print("Buscou a lista >>>>>>> "); 
+    });
   }
 
 
 // remover
- void remove(Sorteio sorteio) {
+ void remove(Sorteio sorteio) async {
    logger.i(sorteio.id);
-   _sorteioService.removerSorteioPorId(sorteio.id).then((retorno){
+   await _sorteioService.removerSorteioPorId(sorteio.id).then((retorno){
     logger.i(retorno);
    });
     refresh();
   }
 
-  buttonFloatingClicked() {
-          Sorteio novoSorteio = Sorteio.empty();
-          Navigator.push(
-            context,
-            MaterialPageRoute(
-              builder: (contextNew) => SorteioAddScreen(
-                taskContext: context,
-                sorteio: novoSorteio,
-              ),
-            ),
-          ).then((value) => setState(() {
-                print('Recarregando a tela inicial');
-                refresh();
-          }));
-  }
+
+  
+buttonFloatingClicked() async {
+  print('Click no botao de adicionar sorteio');
+  Sorteio novoSorteio = Sorteio.empty();
+  await Navigator.push(
+    context,
+    MaterialPageRoute(
+      builder: (contextNew) => SorteioAddScreen(
+        taskContext: context,
+        sorteio: novoSorteio,
+      ),
+    ),
+  ).then((sucesso) {
+      print("Sucesso total!!! ");
+      print("Retorno do sucesso $sucesso");
+
+      if (sucesso == DisposeStatus.error){
+        mostraErrosTela(context, conteudo: "Erro ao salvar o sorteio");
+      
+      }
+      if (sucesso==DisposeStatus.success){
+       
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(
+            content: Text('Sorteio criado com  sucesso!'),
+            backgroundColor: Colors.green,
+          ),
+        );
+
+        print(">>>>> clicou no botao da home FIM 1");
+        refresh();
+      }
+
+
+
+  });
+}
+
+     
 
 
 // Mostra DIALOG //NAO USAR!!!

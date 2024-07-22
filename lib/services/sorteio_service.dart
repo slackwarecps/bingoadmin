@@ -36,15 +36,18 @@ final Logger logger = Logger();
   Future<bool> adicionarSorteio(Sorteio sorteio) async {
     String jsonSorteio = json.encode(sorteio.toMap());
 
-   // jsonSorteio = '{"nomex": null, "localx": null}';
+    jsonSorteio = '{"nomex": null, "localx": null}';
 
 
     http.Response response = await client.post(Uri.parse(getURL()),
         headers: {'Content-type': 'application/json'}, body: jsonSorteio);
+
+
     if (response.statusCode != 201) {
-      return false;
-    }
+          throw HttpException("Code: ${response.statusCode} \nMessage: ${response.body}");
+    } 
     return true;
+
   }
 
 
