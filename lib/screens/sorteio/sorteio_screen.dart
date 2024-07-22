@@ -68,8 +68,8 @@ FirebaseFirestore firestore = FirebaseFirestore.instance;
   }
 
 //atualizar
-  refresh() async {
-    
+  refresh() async {    
+    logger.i( "Atualizando a lista de sorteios");
 
    await _sorteioService.getSorteios().then((sorteios) {
     Provider.of<Sorteios>(context, listen: false).setSorteios(sorteios);

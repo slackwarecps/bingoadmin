@@ -20,11 +20,13 @@ Sorteio.empty()
     createdAt = DateTime.now(),
     updatedAt = DateTime.now();
 
+ // converte o json para um objeto Sorteio
+ // vai ser utilizado quando buscar os dados na api de Sorteio
 Sorteio.fromMap(Map<String, dynamic> map)
     : id = map['id'],
-    nome = map['nome'],
-    createdAt = DateTime.parse(map['createdAt']),
-    updatedAt = DateTime.parse(map['updatedAt'])
+    nome = map['nome'] ?? "",
+    createdAt = map['createdAt']==null? DateTime.now() : DateTime.parse(map['createdAt']),
+    updatedAt = map['updatedAt']==null? DateTime.now() : DateTime.parse(map['updatedAt'])
     ; 
 
 Map<String, dynamic> toMap() {

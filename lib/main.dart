@@ -1,4 +1,4 @@
-import 'dart:ffi';
+
 
 import 'package:bingoadmin/models/jogador.dart';
 import 'package:bingoadmin/models/Jogadores.dart';
@@ -69,7 +69,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Flutter Demo',
       theme: MyTheme,
-      initialRoute: "home",
+      initialRoute: "sorteios",
       routes: {
         "teste": (context) => TesteScreen(),
         "diversos": (context) => DiversosScreen(),

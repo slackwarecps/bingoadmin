@@ -14,7 +14,7 @@ class SorteioService {
   
   http.Client client = WebClient().client;
   
-  static const String resource = "sorteio/";
+  static const String resource = "sorteio";
 
 final Logger logger = Logger();
 
@@ -61,13 +61,26 @@ final Logger logger = Logger();
           verifyException(json.decode(response.body));
         }
 
+        //inicializa a lista
         List<Sorteio> result = [];
 
+        //busca na api
         List<dynamic> jsonList = json.decode(response.body);
+
+        //converte para objeto
         for (var jsonMap in jsonList) {
+          logger.i(jsonMap);
+           if ( jsonMap['updatedAt']==null) {
+            print (DateTime.now());
+              print("NULLO");
+           }
+        
+          //adiciona na lista 
+          // converte o json para um objeto Sorteio
           result.add(Sorteio.fromMap(jsonMap));
         }
 
+        //retorna a lista preenchida
         return result;
   }
 

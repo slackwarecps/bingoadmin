@@ -10,7 +10,7 @@ import 'package:logger/web.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class JogadorService {
-  static const String resource = "jogador/";
+  static const String resource = "jogador";
 
   http.Client client = WebClient().client;
 
